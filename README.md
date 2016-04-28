@@ -2,7 +2,7 @@ Main influence / inspiration:
 
 - [Charles R. __Darwin__](https://en.wikipedia.org/wiki/Charles_Darwin)
 - [Marvin L. __Minsky__](https://en.wikipedia.org/wiki/Marvin_Minsky) & [Seymour A. __Papert__](https://en.wikipedia.org/wiki/Seymour_Papert)
-- Stephen Wolfram
+- [Stephen __Wolfram__](https://en.wikipedia.org/wiki/Stephen_Wolfram)
 
 Other influence:
 
