@@ -1,4 +1,4 @@
-name := "DarwinMinsky-project"
+name := "DarwinMinskyWolfram-project"
 
 organization := "MBALearnsToCode"
 
@@ -16,8 +16,9 @@ libraryDependencies ++= Seq(
 )
 
 resolvers ++= Seq(
+  // for Breeze
   "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
   "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-initialCommands := "import DarwinMinsky._"
+initialCommands := "import DarwinMinskyWolfram._"
