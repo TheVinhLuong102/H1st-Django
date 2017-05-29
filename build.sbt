@@ -31,7 +31,10 @@ libraryDependencies ++= Seq(
 resolvers ++= Seq(
   // for Breeze
   "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/",
-  "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+  "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+
+  // for ScalaTest
+  "Artima Maven Repository" at "http://repo.artima.com/releases"
 )
 
 initialCommands := "import DarwinMinskyWolfram._"
