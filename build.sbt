@@ -1,11 +1,11 @@
-lazy val `DarwinMinskyWolfram_project` =
+lazy val `DarwinMinskyWolfram-project` =
   (project in file("."))
     .settings(
       name := "Darwin Minsky Wolfram",
 
       organization := "MBA Learns to Code",
 
-      version := "0.0.0",
+      version := "1.0.2",
 
       scalaVersion := "2.11.11",   // latest Scala version compatible with Apache Spark
 
