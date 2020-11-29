@@ -1,5 +1,7 @@
 from django.apps.config import AppConfig
 
+from pathlib import Path
+
 
 class H1stModelAppConfig(AppConfig):
     # AppConfig.name
@@ -22,3 +24,19 @@ class H1stModelAppConfig(AppConfig):
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
     verbose_name = 'Human-First AI: Model Administration'
+
+    # *** DURING AWS EB DEPLOYMENT ***
+    # The app module <module '...' (namespace)>
+    # has multiple filesystem locations (['...', '...']);
+    # you must configure this app with an AppConfig subclass
+    # with a 'path' class attribute.
+
+    # AppConfig.path
+    # Filesystem path to the application directory,
+    # e.g. '/usr/lib/pythonX.Y/dist-packages/django/contrib/admin'.
+    # In most cases, Django can automatically detect and set this,
+    # but you can also provide an explicit override as a class attribute
+    # on your AppConfig subclass.
+    # In a few situations this is required; for instance if the app package
+    # is a namespace package with multiple paths.
+    path = Path(__file__).resolve().parent
