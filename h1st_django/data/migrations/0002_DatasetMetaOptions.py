@@ -20,4 +20,4 @@ class Migration(migrations.Migration):
         migrations.AlterModelTable(
             name='dataset',
             table='H1stData_Dataset',
-        ),
+        )
