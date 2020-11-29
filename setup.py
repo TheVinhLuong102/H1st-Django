@@ -1,5 +1,5 @@
 import json
-from setuptools import find_namespace_packages, setup
+from setuptools import setup
 
 
 _METADATA_FILE_NAME = 'metadata.json'
@@ -14,7 +14,7 @@ setup(
     name=_metadata['PACKAGE'],
     version=_metadata['VERSION'],
     namespace_packages=[_PACKAGE_NAMESPACE_NAME],
-    packages=find_namespace_packages(include=[f'{_PACKAGE_NAMESPACE_NAME}.*']),
+    # packages=find_namespace_packages(include=[f'{_PACKAGE_NAMESPACE_NAME}.*']),
     include_package_data=True,
     install_requires=[s
                       for s in {i.strip() for i in
