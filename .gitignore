@@ -1,10 +1,7 @@
 # Python
+*.egg-info/
 __pycache__/
 *.pyc
-
-# IntelliJ IDEA Files
-.idea/
-*.iml
 
 # Visual Studio Code files
 .vscode/
