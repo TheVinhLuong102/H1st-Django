@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = ('contenttypes', '0002_remove_content_type_name'),
 
-    operations = [
+    operations = \
         migrations.CreateModel(
             name='H1stModel',
 
@@ -41,4 +41,3 @@ class Migration(migrations.Migration):
                 'base_manager_name': 'objects',
             },
         ),
-    ]
