@@ -11,6 +11,8 @@ from json.decoder import JSONDecoder
 from uuid import uuid4
 
 from ..data.models import Dataset
+from ..util import PGSQL_IDENTIFIER_MAX_LEN
+from .apps import H1stModelAppConfig
 
 
 class H1stModel(PolymorphicModel):
@@ -23,6 +25,17 @@ class H1stModel(PolymorphicModel):
             unique=True,   # implied
             db_index=True,
             editable=False)
+
+    class Meta:
+        db_table = f"{H1stModelAppConfig.label}_{__qualname__.split('.')[0]}"
+
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" TOO LONG ***')
+
+        default_related_name = 'h1st_models'
+
+        verbose_name = 'H1st Model'
+        verbose_name_plural = 'H1st Models'
 
     def __str__(self):
         return f'{type(self)} #{self.uuid}'
@@ -74,6 +87,17 @@ class H1stModelEvalMetricsSet(Model):
             null=True,
             blank=True,
             help_text='Evaluation Metrics')
+
+    class Meta:
+        db_table = f"{H1stModelAppConfig.label}_{__qualname__.split('.')[0]}"
+
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" TOO LONG ***')
+
+        default_related_name = 'h1st_model_eval_metrics_sets'
+
+        verbose_name = 'H1st Model Evaluation Metrics Set'
+        verbose_name_plural = 'H1st Model Evaluation Metrics Sets'
 
     def __str__(self):
         return f'Evaluation Metrics of {self.h1st_model} on {self.dataset}: ' \
