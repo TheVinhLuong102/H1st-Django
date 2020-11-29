@@ -23,7 +23,7 @@ class H1stModelAppConfig(AppConfig):
     # AppConfig.verbose_name
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
-    verbose_name = 'Human-First AI: Model Administration'
+    verbose_name = 'Human-First AI: Models'
 
     # *** DURING AWS EB DEPLOYMENT ***
     # The app module <module '...' (namespace)>
