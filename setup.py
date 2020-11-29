@@ -3,7 +3,7 @@ from setuptools import find_namespace_packages, setup
 
 
 _METADATA_FILE_NAME = 'metadata.json'
-_PACKAGE_NAMESPACE_NAME = 'h1ai_django'
+_PACKAGE_NAMESPACE_NAME = 'h1st_django'
 _REQUIREMENTS_FILE_NAME = 'requirements.txt'
 
 
