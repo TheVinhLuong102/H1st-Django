@@ -40,7 +40,7 @@ class H1stModel(PolymorphicModel, _H1stModel):
         verbose_name_plural = 'H1st Models'
 
     def __str__(self):
-        return f'{type(self)} #{self.uuid}'
+        return f'{type(self).__name__} #{self.uuid}'
 
 
 class H1stModelEvalMetricsSet(Model):
