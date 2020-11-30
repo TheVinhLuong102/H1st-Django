@@ -31,4 +31,4 @@ class Dataset(PolymorphicModel):
         verbose_name_plural = 'Datasets'
 
     def __str__(self):
-        return f'{type(self).__name__} #{self.uuid}'
+        return f'{type(self)} #{self.uuid}'
