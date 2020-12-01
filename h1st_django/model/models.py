@@ -1,5 +1,3 @@
-# from h1st import Model as _H1stModel
-
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.base import Model
 from django.db.models.deletion import PROTECT
@@ -12,7 +10,7 @@ from polymorphic.models import PolymorphicModel
 from json.decoder import JSONDecoder
 from uuid import uuid4
 
-from ..data.models import Dataset
+from ..data.models import DataSet
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from .apps import H1stModelAppConfig
 
@@ -69,25 +67,25 @@ class H1stModelEvalMetricsSet(Model):
             db_index=True,   # implied
             help_text='H1st Model evaluated')
 
-    dataset = \
+    data_set = \
         ForeignKey(
-            verbose_name='Dataset',
-            to=Dataset,
+            verbose_name='Data Set',
+            to=DataSet,
             on_delete=PROTECT,
             related_name=RELATED_NAME,
             related_query_name=RELATED_QUERY_NAME,
             null=False,
             blank=False,
             db_index=True,   # implied
-            help_text='Dataset for evaluation')
+            help_text='Data Set for evaluation')
 
     eval_metrics = \
         JSONField(
             verbose_name='Evaluation Metrics',
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,
-            null=True,
-            blank=True,
+            null=False,
+            blank=False,
             help_text='Evaluation Metrics')
 
     class Meta:
@@ -102,5 +100,5 @@ class H1stModelEvalMetricsSet(Model):
         verbose_name_plural = 'H1st Model Evaluation Metrics Sets'
 
     def __str__(self):
-        return f'Evaluation Metrics of {self.h1st_model} on {self.dataset}: ' \
+        return f'Evaluation Metrics of {self.h1st_model} on {self.data_set}: '\
                f'{self.eval_metrics}'

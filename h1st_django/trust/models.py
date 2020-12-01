@@ -8,7 +8,7 @@ from django.db.models.fields.related import ForeignKey
 from json.decoder import JSONDecoder
 from uuid import uuid4
 
-from ..data.models import Dataset
+from ..data.models import DataSet
 from ..model.models import H1stModel
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from .apps import H1stTrustAppConfig
@@ -28,17 +28,17 @@ class Decision(Model):
             db_index=True,
             editable=False)
 
-    dataset = \
+    data_set = \
         ForeignKey(
-            verbose_name='Dataset',
-            to=Dataset,
+            verbose_name='Data Set',
+            to=DataSet,
             on_delete=PROTECT,
             related_name=RELATED_NAME,
             related_query_name=RELATED_QUERY_NAME,
             null=False,
             blank=False,
             db_index=True,   # implied
-            help_text='Dataset used in Decision')
+            help_text='Data Set used in Decision')
 
     h1st_model = \
         ForeignKey(
@@ -52,14 +52,14 @@ class Decision(Model):
             db_index=True,   # implied
             help_text='H1st Model used in Decision')
 
-    output = \
+    output_json = \
         JSONField(
-            verbose_name='Output',
+            verbose_name='Output (JSON)',
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,
             null=True,
             blank=True,
-            help_text='Output')
+            help_text='Output (JSON) of Decision')
 
     class Meta:
         db_table = f"{H1stTrustAppConfig.label}_{__qualname__.split('.')[0]}"
@@ -73,5 +73,5 @@ class Decision(Model):
         verbose_name_plural = 'Decisions'
 
     def __str__(self):
-        return f'Decision by {self.h1st_model} on {self.dataset}: ' \
-               f'{self.output}'
+        return f'Decision on {self.data_set} by {self.h1st_model}: ' \
+               f'{self.output_json}'
