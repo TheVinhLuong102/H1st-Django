@@ -3,7 +3,7 @@
 
 import argparse
 
-from . import run_command_with_substituted_creds_file
+from h1st_django.util.cli import run_command_with_substituted_creds_file
 
 
 PARSER = \
@@ -111,5 +111,5 @@ PARSER.add_argument(
 args = PARSER.parse_args()
 
 run_command_with_substituted_creds_file(
-    command=args.command,
+    command=f'python3 manage.py {args.django_admin_command}',
     creds_file_path=args.creds_file_path)

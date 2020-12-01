@@ -15,7 +15,7 @@ _H1ST_DJANGO_CREDS_FILE_PATH = \
 def run_command_with_substituted_creds_file(
         command: str,
         creds_file_path: str):
-    creds_file_path = os.path.expanduser(creds_file_path)
+    creds_file_path = Path(creds_file_path).expanduser()
 
     creds = yaml.safe_load(stream=open(creds_file_path, 'r'))
 
@@ -25,7 +25,9 @@ def run_command_with_substituted_creds_file(
        and db_creds['password'] \
        and db_creds['db-name']
 
-    _tmp_h1st_django_creds_file_path = _H1ST_DJANGO_CREDS_FILE_PATH + '.orig'
+    _tmp_h1st_django_creds_file_path = \
+        _H1ST_DJANGO_CREDS_FILE_PATH.with_suffix(
+            _H1ST_DJANGO_CREDS_FILE_PATH.suffix + '.orig')
     assert not os.path.isfile(_tmp_h1st_django_creds_file_path)
 
     shutil.copyfile(
