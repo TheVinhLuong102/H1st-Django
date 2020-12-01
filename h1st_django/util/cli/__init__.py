@@ -15,6 +15,8 @@ _H1ST_DJANGO_CREDS_FILE_PATH = \
 def run_command_with_substituted_creds_file(
         command: str,
         creds_file_path: str):
+    creds_file_path = os.path.expanduser(creds_file_path)
+
     creds = yaml.safe_load(stream=open(creds_file_path, 'r'))
 
     db_creds = creds['db']

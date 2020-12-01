@@ -19,4 +19,6 @@ setup(
     install_requires=[s
                       for s in {i.strip() for i in
                                 open(_REQUIREMENTS_FILE_NAME).readlines()}
-                      if not s.startswith('#')])
+                      if not s.startswith('#')],
+    scripts=['h1st_django/util/cli/h1st-django-admin',
+             'h1st_django/util/cli/h1st-django-aws-eb'])
