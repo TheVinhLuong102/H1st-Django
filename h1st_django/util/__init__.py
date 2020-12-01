@@ -1,4 +1,1 @@
-H1ST_DJANGO_PROJECT_ROOT_DIR_NAME = '_h1st_django_project_root'
-H1ST_DJANGO_CREDS_FILE_NAME = '.creds.yml'
-
 PGSQL_IDENTIFIER_MAX_LEN = 63

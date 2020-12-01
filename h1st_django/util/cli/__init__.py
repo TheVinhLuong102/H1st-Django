@@ -3,13 +3,9 @@ from pathlib import Path
 from ruamel import yaml
 import shutil
 
-from .. import H1ST_DJANGO_PROJECT_ROOT_DIR_NAME, H1ST_DJANGO_CREDS_FILE_NAME
 
-
-_H1ST_DJANGO_CREDS_FILE_PATH = \
-    Path().resolve() / \
-    H1ST_DJANGO_PROJECT_ROOT_DIR_NAME / \
-    H1ST_DJANGO_CREDS_FILE_NAME
+_H1ST_DJANGO_CREDS_FILE_NAME = '.creds.yml'
+_H1ST_DJANGO_CREDS_FILE_PATH = Path(_H1ST_DJANGO_CREDS_FILE_NAME).resolve()
 
 
 def run_command_with_substituted_creds_file(
