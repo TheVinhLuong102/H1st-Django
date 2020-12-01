@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                     null=True,
                     on_delete=django.db.models.deletion.CASCADE,
                     related_name='polymorphic_h1stdata.dataset_set+',
-                    to='contenttypes.contenttype'))
+                    to='contenttypes.contenttype')),
 
                 ('schema',
                  models.ForeignKey(
