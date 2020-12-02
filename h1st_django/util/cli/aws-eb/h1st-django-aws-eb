@@ -4,7 +4,7 @@
 import argparse
 import os
 
-from h1st_django.util.cli import run_command_with_substituted_creds_file
+from h1st_django.util.cli import run_command_with_h1st_django_config_file
 
 
 PARSER = \
@@ -151,7 +151,7 @@ aws_eb_deploy_parser = \
     )
 
 aws_eb_deploy_parser.add_argument(
-    'creds_file_path',
+    'h1st_django_config_file_path',
         # name or flags - Either a name or a list of option strings,
         # e.g. foo or -f, --foo.
     action='store',
@@ -172,9 +172,9 @@ aws_eb_deploy_parser.add_argument(
     # required=True,
         # Whether or not the command-line option may be omitted
         # (optionals only).
-    help='Path to Credentials File',
+    help='Path to H1st Django Config File',
         # A brief description of what the argument does.
-    metavar='CREDS_FILE_PATH',
+    metavar='H1ST_DJANGO_CONFIG_FILE_PATH',
         # A name for the argument in usage messages.
     # dest=None
         # The name of the attribute to be added to the object
@@ -251,8 +251,8 @@ if args.aws_eb_cmd == 'init':
     os.system('eb init')
 
 elif args.aws_eb_cmd == 'deploy':
-    run_command_with_substituted_creds_file(
+    run_command_with_h1st_django_config_file(
         command='eb '
                 f"{'create' if args.create else 'deploy'} "
                 f"{args.aws_eb_env_name if args.aws_eb_env_name else ''}",
-        creds_file_path=args.creds_file_path)
+        h1st_django_config_file_path=args.h1st_django_config_file_path)
