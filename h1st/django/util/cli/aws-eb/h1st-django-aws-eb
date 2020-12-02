@@ -7,7 +7,7 @@ from pathlib import Path
 from ruamel import yaml
 import shutil
 
-from h1st_django.util.cli import run_command_with_config_file, __path__
+from h1st.django.util.cli import run_command_with_config_file, __path__
 
 
 _EB_EXTENSIONS_DIR_NAME = '.ebextensions'
