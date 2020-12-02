@@ -3,7 +3,7 @@
 
 import argparse
 
-from h1st_django.util.cli import run_command_with_h1st_django_config_file
+from h1st_django.util.cli import run_command_with_config_file
 
 
 PARSER = \
@@ -110,6 +110,6 @@ PARSER.add_argument(
 
 args = PARSER.parse_args()
 
-run_command_with_h1st_django_config_file(
+run_command_with_config_file(
     command=f'python3 manage.py {args.django_admin_command}',
     h1st_django_config_file_path=args.h1st_django_config_file_path)

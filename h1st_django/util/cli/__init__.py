@@ -7,7 +7,7 @@ import shutil
 _H1ST_DJANGO_CONFIG_FILE_NAME = _H1ST_DJANGO_CONFIG_FILE_PATH = '.config.yml'
 
 
-def run_command_with_h1st_django_config_file(
+def run_command_with_config_file(
         command: str,
         h1st_django_config_file_path: str):
     h1st_django_config_file_path = \

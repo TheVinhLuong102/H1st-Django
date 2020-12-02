@@ -7,7 +7,7 @@ from pathlib import Path
 from ruamel import yaml
 import shutil
 
-from h1st_django.util.cli import run_command_with_h1st_django_config_file
+from h1st_django.util.cli import run_command_with_config_file, __path__
 
 
 _EB_EXTENSIONS_DIR_NAME = '.ebextensions'
@@ -265,11 +265,11 @@ elif args.aws_eb_cmd == 'deploy':
     subnets = aws_configs['subnets']
     assert region and vpc and subnets
 
-    _this_dir_path = Path(__file__).resolve().parent
+    _aws_eb_cli_util_dir_path = Path(__path__[0]) / Path(__file__).parent.name
 
     assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
     shutil.copytree(
-        src=_this_dir_path / _EB_EXTENSIONS_DIR_NAME,
+        src=_aws_eb_cli_util_dir_path / _EB_EXTENSIONS_DIR_NAME,
         dst=_EB_EXTENSIONS_DIR_NAME,
         symlinks=False,
         ignore=None,
@@ -279,11 +279,11 @@ elif args.aws_eb_cmd == 'deploy':
 
     assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)
     shutil.copyfile(
-        src=_this_dir_path / _EB_IGNORE_FILE_NAME,
+        src=_aws_eb_cli_util_dir_path / _EB_IGNORE_FILE_NAME,
         dst=_EB_IGNORE_FILE_NAME)
     assert os.path.isfile(_EB_IGNORE_FILE_NAME)
 
-    run_command_with_h1st_django_config_file(
+    run_command_with_config_file(
         command=('eb ' +
                  ((f'create --region {region} --vpc.id {vpc}'
                    f' --vpc.dbsubnets {subnets} --vpc.ec2subnets {subnets}'
