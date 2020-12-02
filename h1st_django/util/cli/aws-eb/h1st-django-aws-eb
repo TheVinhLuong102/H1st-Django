@@ -265,7 +265,7 @@ elif args.aws_eb_cmd == 'deploy':
     subnets = aws_configs['subnets']
     assert region and vpc and subnets
 
-    _aws_eb_cli_util_dir_path = Path(__path__[0]) / Path(__file__).parent.name
+    _aws_eb_cli_util_dir_path = Path(__path__[0]) / 'aws-eb'
 
     assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
     shutil.copytree(
