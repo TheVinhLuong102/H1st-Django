@@ -1,0 +1,5 @@
+include .ebignore
+include *.config
+include *.yml
+
+exclude *.pyc
