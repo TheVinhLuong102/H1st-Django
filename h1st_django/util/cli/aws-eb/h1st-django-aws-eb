@@ -265,7 +265,7 @@ elif args.aws_eb_cmd == 'deploy':
     subnets = aws_configs['subnets']
     assert region and vpc and subnets
 
-    _this_dir_path = Path(__file__).resolve()
+    _this_dir_path = Path(__file__).resolve().parent
 
     assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
     shutil.copytree(
@@ -275,7 +275,7 @@ elif args.aws_eb_cmd == 'deploy':
         ignore=None,
         ignore_dangling_symlinks=False,
         dirs_exist_ok=False)
-    assert os.path.isdir(path=_EB_EXTENSIONS_DIR_NAME)
+    assert os.path.isdir(_EB_EXTENSIONS_DIR_NAME)
 
     assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)
     shutil.copyfile(
