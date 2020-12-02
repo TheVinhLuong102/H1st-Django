@@ -3,13 +3,13 @@ from django.apps.config import AppConfig
 from pathlib import Path
 
 
-class H1stTrustAppConfig(AppConfig):
+class H1stDataAppConfig(AppConfig):
     # AppConfig.name
     # Full Python path to the application, e.g. 'django.contrib.admin'.
     # This attribute defines which application the configuration applies to.
     # It must be set in all AppConfig subclasses.
     # It must be unique across a Django project.
-    name = 'h1st_django.trust'
+    name = 'h1st.django.data'
 
     # AppConfig.label
     # Short name for the application, e.g. 'admin'
@@ -18,12 +18,12 @@ class H1stTrustAppConfig(AppConfig):
     # It defaults to the last component of name.
     # It should be a valid Python identifier.
     # It must be unique across a Django project.
-    label = 'H1stTrust'
+    label = 'H1stData'
 
     # AppConfig.verbose_name
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
-    verbose_name = 'Human-First AI: Trust Vault'
+    verbose_name = 'Human-First AI: Data'
 
     # *** DURING AWS EB DEPLOYMENT ***
     # The app module <module '...' (namespace)>

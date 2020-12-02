@@ -3,7 +3,7 @@ from setuptools import find_namespace_packages, setup
 
 
 _METADATA_FILE_NAME = 'metadata.json'
-_PACKAGE_NAMESPACE_NAME = 'h1st_django'
+_PACKAGE_NAMESPACE_NAME = 'h1st'
 _REQUIREMENTS_FILE_NAME = 'requirements.txt'
 
 
@@ -20,5 +20,5 @@ setup(
                       for s in {i.strip() for i in
                                 open(_REQUIREMENTS_FILE_NAME).readlines()}
                       if not s.startswith('#')],
-    scripts=['h1st_django/util/cli/django-admin/h1st-django-admin',
-             'h1st_django/util/cli/aws-eb/h1st-django-aws-eb'])
+    scripts=['h1st/django/util/cli/django-admin/h1st-django-admin',
+             'h1st/django/util/cli/aws-eb/h1st-django-aws-eb'])
