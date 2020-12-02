@@ -13,6 +13,5 @@ PsycoPG2-binary >= 2.8.6
 GitPython >= 3.1.11
 Ruamel.YAML >= 0.16.12
 
-# AWS
-AWSCLI >= 1.18.188
+# AWS Elastic Beanstalk
 AWSEBCLI >= 3.19.2
