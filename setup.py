@@ -7,7 +7,7 @@ _PACKAGE_NAMESPACE_NAME = 'h1st_django'
 _REQUIREMENTS_FILE_NAME = 'requirements.txt'
 
 
-_metadata = json.load(open(_METADATA_FILE_NAME, 'r'))
+_metadata = json.load(open(_METADATA_FILE_NAME))
 
 
 setup(
