@@ -288,7 +288,7 @@ elif args.aws_eb_cmd == 'deploy':
                  ((f'create --region {region} --vpc.id {vpc}'
                    f' --vpc.dbsubnets {subnets} --vpc.ec2subnets {subnets}'
                    f' --vpc.elbsubnets {subnets} --vpc.elbpublic'
-                   '--vpc.publicip')
+                   ' --vpc.publicip')
                   if args.create
                   else 'deploy') +
                  f" {args.aws_eb_env_name if args.aws_eb_env_name else ''}"),
