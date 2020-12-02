@@ -1,4 +1,3 @@
-recursive-include h1st_django/util/cli/django-admin
-recursive-include h1st_django/util/cli/aws-eb
+graft h1st_django/util/cli
 
 recursive-exclude **/*.pyc
