@@ -1,5 +1,5 @@
-include .ebignore
-include *.config
-include *.yml
+recursive-include **/.ebignore
+recursive-include **/*.config
+recursive-include **/*.yml
 
-exclude *.pyc
+recursive-exclude **/*.pyc
