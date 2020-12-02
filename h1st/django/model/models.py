@@ -41,6 +41,10 @@ class H1stModel(PolymorphicModel):
         return f'{type(self).__name__} #{self.uuid}'
 
 
+# alias
+H1stDjangoModel = H1stModel
+
+
 class H1stModelEvalMetricsSet(Model):
     RELATED_NAME = 'h1st_model_eval_metrics_sets'
     RELATED_QUERY_NAME = 'h1st_model_eval_metrics_set'
