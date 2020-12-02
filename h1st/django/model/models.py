@@ -41,7 +41,6 @@ class H1stModel(PolymorphicModel):
         return f'{type(self).__name__} #{self.uuid}'
 
 
-# alias
 H1stDjangoModel = H1stModel
 
 
