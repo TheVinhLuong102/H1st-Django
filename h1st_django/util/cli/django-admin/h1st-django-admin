@@ -3,7 +3,7 @@
 
 import argparse
 
-from h1st.django.util.cli import run_command_with_config_file
+from h1st_django.util.cli import run_command_with_config_file
 
 
 PARSER = \
