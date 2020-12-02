@@ -3,8 +3,15 @@
 
 import argparse
 import os
+from pathlib import Path
+from ruamel import yaml
+import shutil
 
 from h1st_django.util.cli import run_command_with_h1st_django_config_file
+
+
+_EB_EXTENSIONS_DIR_NAME = '.ebextensions'
+_EB_IGNORE_FILE_NAME = '.ebignore'
 
 
 PARSER = \
@@ -251,8 +258,47 @@ if args.aws_eb_cmd == 'init':
     os.system('eb init')
 
 elif args.aws_eb_cmd == 'deploy':
+    configs = yaml.safe_load(stream=open(args.h1st_django_config_file_path))
+    aws_configs = configs['aws']
+    region = aws_configs['region']
+    vpc = aws_configs['vpc']
+    subnets = aws_configs['subnets']
+    assert region and vpc and subnets
+
+    _this_dir_path = Path(__file__).resolve()
+
+    assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
+    shutil.copytree(
+        src=_this_dir_path / _EB_EXTENSIONS_DIR_NAME,
+        dst=_EB_EXTENSIONS_DIR_NAME,
+        symlinks=False,
+        ignore=None,
+        ignore_dangling_symlinks=False,
+        dirs_exist_ok=False)
+    assert os.path.isdir(path=_EB_EXTENSIONS_DIR_NAME)
+
+    assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)
+    shutil.copyfile(
+        src=_this_dir_path / _EB_IGNORE_FILE_NAME,
+        dst=_EB_IGNORE_FILE_NAME)
+    assert os.path.isfile(_EB_IGNORE_FILE_NAME)
+
     run_command_with_h1st_django_config_file(
-        command='eb '
-                f"{'create' if args.create else 'deploy'} "
-                f"{args.aws_eb_env_name if args.aws_eb_env_name else ''}",
+        command=('eb ' +
+                 ((f'create --region {region} --vpc.id {vpc}'
+                   f' --vpc.dbsubnets {subnets} --vpc.ec2subnets {subnets}'
+                   f' --vpc.elbsubnets {subnets} --vpc.elbpublic'
+                   '--vpc.publicip')
+                  if args.create
+                  else 'deploy') +
+                 f" {args.aws_eb_env_name if args.aws_eb_env_name else ''}"),
         h1st_django_config_file_path=args.h1st_django_config_file_path)
+
+    shutil.rmtree(
+        path=_EB_EXTENSIONS_DIR_NAME,
+        ignore_errors=False,
+        onerror=None)
+    assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
+
+    os.remove(_EB_IGNORE_FILE_NAME)
+    assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)

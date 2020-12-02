@@ -21,7 +21,7 @@ def run_command_with_h1st_django_config_file(
        and db_creds['password'] \
        and db_creds['db-name']
 
-    assert not os.path.isfile(_H1ST_DJANGO_CONFIG_FILE_PATH)
+    assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_PATH)
     shutil.copyfile(
         src=h1st_django_config_file_path,
         dst=_H1ST_DJANGO_CONFIG_FILE_PATH)
@@ -29,4 +29,4 @@ def run_command_with_h1st_django_config_file(
     os.system(command)
 
     os.remove(_H1ST_DJANGO_CONFIG_FILE_PATH)
-    assert not os.path.isfile(_H1ST_DJANGO_CONFIG_FILE_PATH)
+    assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_PATH)
