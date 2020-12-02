@@ -39,4 +39,4 @@ class H1stModelAppConfig(AppConfig):
     # on your AppConfig subclass.
     # In a few situations this is required; for instance if the app package
     # is a namespace package with multiple paths.
-    path = Path(__file__).resolve().parent
+    path = Path(__file__).parent
