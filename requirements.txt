@@ -1,5 +1,5 @@
 # Human-First AI
-git+https://GitHub.com/H1st-AI/H1st
+H1st >= 2020.8
 
 # Django and related
 Django >= 3.1.3
