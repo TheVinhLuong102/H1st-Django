@@ -1,3 +1,5 @@
+from h1st.core.model import Model as H1stCoreModel
+
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.base import Model
 from django.db.models.deletion import PROTECT
@@ -15,7 +17,7 @@ from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from .apps import H1stModelAppConfig
 
 
-class H1stModel(PolymorphicModel):
+class H1stModel(PolymorphicModel, H1stCoreModel):
     uuid = \
         UUIDField(
             verbose_name='UUID',
