@@ -14,7 +14,7 @@ from uuid import uuid4
 
 from ..data.models import DataSet
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
-from .apps import H1stModelAppConfig
+from . import H1stModelAppConfig
 
 
 class H1stModel(PolymorphicModel, H1stCoreModel):

@@ -7,7 +7,7 @@ from polymorphic.models import PolymorphicModel
 from uuid import uuid4
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
-from .apps import H1stDataAppConfig
+from . import H1stDataAppConfig
 
 
 class DataSchema(PolymorphicModel):

@@ -11,7 +11,7 @@ from uuid import uuid4
 from ..data.models import DataSet
 from ..model.models import H1stModel
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
-from .apps import H1stTrustAppConfig
+from . import H1stTrustAppConfig
 
 
 class Decision(Model):
