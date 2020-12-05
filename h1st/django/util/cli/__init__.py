@@ -48,21 +48,22 @@ def run_command_with_config_file(
     shutil.copyfile(
         src=_MANAGE_PY_FILE_SRC_PATH,
         dst=_MANAGE_PY_FILE_NAME)
-    assert not os.path.exists(path=_ASGI_PY_FILE_NAME)
-    shutil.copyfile(
-        src=_ASGI_PY_FILE_SRC_PATH,
-        dst=_ASGI_PY_FILE_NAME)
-    assert not os.path.exists(path=_WSGI_PY_FILE_NAME)
-    shutil.copyfile(
-        src=_WSGI_PY_FILE_SRC_PATH,
-        dst=_WSGI_PY_FILE_NAME)
 
     if asgi:
+        assert not os.path.exists(path=_ASGI_PY_FILE_NAME)
+        shutil.copyfile(
+            src=_ASGI_PY_FILE_SRC_PATH,
+            dst=_ASGI_PY_FILE_NAME)
         assert not os.path.exists(path=_PROCFILE_NAME)
         shutil.copyfile(
             src=_H1ST_DJANGO_UTIL_CLI_STANDARD_FILES_DIR_PATH /
                 f'{_PROCFILE_NAME}.{asgi.capitalize()}',
             dst=_PROCFILE_NAME)
+    else:
+        assert not os.path.exists(path=_WSGI_PY_FILE_NAME)
+        shutil.copyfile(
+            src=_WSGI_PY_FILE_SRC_PATH,
+            dst=_WSGI_PY_FILE_NAME)
 
     os.system(command)
 
@@ -70,11 +71,12 @@ def run_command_with_config_file(
     assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
     os.remove(_MANAGE_PY_FILE_NAME)
     assert not os.path.exists(path=_MANAGE_PY_FILE_NAME)
-    os.remove(_ASGI_PY_FILE_NAME)
-    assert not os.path.exists(path=_ASGI_PY_FILE_NAME)
-    os.remove(_WSGI_PY_FILE_NAME)
-    assert not os.path.exists(path=_WSGI_PY_FILE_NAME)
 
     if asgi:
+        os.remove(_ASGI_PY_FILE_NAME)
+        assert not os.path.exists(path=_ASGI_PY_FILE_NAME)
         os.remove(_PROCFILE_NAME)
         assert not os.path.exists(path=_PROCFILE_NAME)
+    else:
+        os.remove(_WSGI_PY_FILE_NAME)
+        assert not os.path.exists(path=_WSGI_PY_FILE_NAME)
