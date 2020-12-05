@@ -21,6 +21,18 @@ _WSGI_PY_FILE_NAME = 'wsgi.py'
 _WSGI_PY_FILE_SRC_PATH = \
     _H1ST_DJANGO_UTIL_CLI_STANDARD_FILES_DIR_PATH / _WSGI_PY_FILE_NAME
 
+_DAPHNE_PROCFILE_NAME = 'Procfile.Daphne'
+_DAPHNE_PROCFILE_SRC_PATH = \
+    _H1ST_DJANGO_UTIL_CLI_STANDARD_FILES_DIR_PATH / _DAPHNE_PROCFILE_NAME
+
+_HYPERCORN_PROCFILE_NAME = 'Procfile.Hypercorn'
+_HYPERCORN_PROCFILE_SRC_PATH = \
+    _H1ST_DJANGO_UTIL_CLI_STANDARD_FILES_DIR_PATH / _HYPERCORN_PROCFILE_NAME
+
+_UVICORN_PROCFILE_NAME = 'Procfile.Uvicorn'
+_UVICORN_PROCFILE_SRC_PATH = \
+    _H1ST_DJANGO_UTIL_CLI_STANDARD_FILES_DIR_PATH / _UVICORN_PROCFILE_NAME
+
 
 def run_command_with_config_file(
         command: str,
@@ -52,6 +64,18 @@ def run_command_with_config_file(
     shutil.copyfile(
         src=_WSGI_PY_FILE_SRC_PATH,
         dst=_WSGI_PY_FILE_NAME)
+    assert not os.path.exists(path=_DAPHNE_PROCFILE_NAME)
+    shutil.copyfile(
+        src=_DAPHNE_PROCFILE_SRC_PATH,
+        dst=_DAPHNE_PROCFILE_NAME)
+    assert not os.path.exists(path=_HYPERCORN_PROCFILE_NAME)
+    shutil.copyfile(
+        src=_HYPERCORN_PROCFILE_SRC_PATH,
+        dst=_HYPERCORN_PROCFILE_NAME)
+    assert not os.path.exists(path=_UVICORN_PROCFILE_NAME)
+    shutil.copyfile(
+        src=_UVICORN_PROCFILE_SRC_PATH,
+        dst=_UVICORN_PROCFILE_NAME)
 
     os.system(command)
 
@@ -63,3 +87,9 @@ def run_command_with_config_file(
     assert not os.path.exists(path=_ASGI_PY_FILE_NAME)
     os.remove(_WSGI_PY_FILE_NAME)
     assert not os.path.exists(path=_WSGI_PY_FILE_NAME)
+    os.remove(_DAPHNE_PROCFILE_NAME)
+    assert not os.path.exists(path=_DAPHNE_PROCFILE_NAME)
+    os.remove(_HYPERCORN_PROCFILE_NAME)
+    assert not os.path.exists(path=_HYPERCORN_PROCFILE_NAME)
+    os.remove(_UVICORN_PROCFILE_NAME)
+    assert not os.path.exists(path=_UVICORN_PROCFILE_NAME)
