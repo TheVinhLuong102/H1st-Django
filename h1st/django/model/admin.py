@@ -2,11 +2,11 @@ from django.contrib.admin.decorators import register
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import site
 
-from .models import H1stModel, H1stModelEvalMetricsSet
+from .models import H1stDjangoModel, H1stModelEvalMetricsSet
 
 
 @register(
-    H1stModel,
+    H1stDjangoModel,
     site=site)
 class H1stModelAdmin(ModelAdmin):
     pass
