@@ -1,9 +1,12 @@
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import PROTECT
 from django.db.models.fields import UUIDField
+from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey
 
 from polymorphic.models import PolymorphicModel
 
+from json.decoder import JSONDecoder
 from uuid import uuid4
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
@@ -72,6 +75,31 @@ class DataSet(PolymorphicModel):
 
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'
+
+    def __str__(self):
+        return f'{type(self).__name__} #{self.uuid}'
+
+
+class JSONDataSet(DataSet):
+    json = \
+        JSONField(
+            verbose_name='JSON Data Content',
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+            null=True,
+            blank=True,
+            help_text='JSON Data Content')
+
+    class Meta:
+        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
+
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" TOO LONG ***')
+
+        default_related_name = 'json_data_sets'
+
+        verbose_name = 'JSON Data Set'
+        verbose_name_plural = 'JSON Data Sets'
 
     def __str__(self):
         return f'{type(self).__name__} #{self.uuid}'

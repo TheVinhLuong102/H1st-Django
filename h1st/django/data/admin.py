@@ -2,7 +2,7 @@ from django.contrib.admin.decorators import register
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import site
 
-from .models import DataSchema, DataSet
+from .models import DataSchema, DataSet, JSONDataSet
 
 
 @register(
@@ -16,4 +16,11 @@ class DataSchemaAdmin(ModelAdmin):
     DataSet,
     site=site)
 class DataSetAdmin(ModelAdmin):
+    pass
+
+
+@register(
+    JSONDataSet,
+    site=site)
+class JSONDataSetAdmin(ModelAdmin):
     pass
