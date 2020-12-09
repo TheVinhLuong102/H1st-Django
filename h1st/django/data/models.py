@@ -1,6 +1,6 @@
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import PROTECT
-from django.db.models.fields import UUIDField
+from django.db.models.fields import CharField, UUIDField
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey
 
@@ -103,3 +103,44 @@ class JSONDataSet(DataSet):
 
     def __str__(self):
         return f'{type(self).__name__} #{self.uuid}'
+
+
+class FileBasedDataSet(DataSet):
+    path = \
+        CharField(
+            verbose_name='Path',
+            max_length=255,
+            null=False,
+            blank=False,
+            db_index=True,
+            default=None,
+            editable=True,
+            unique=False,
+            help_text='Path')
+
+    class Meta:
+        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
+
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" TOO LONG ***')
+
+        default_related_name = 'file_based_data_sets'
+
+        verbose_name = 'File-Based Data Set'
+        verbose_name_plural = 'File-Based Data Sets'
+
+    def __str__(self):
+        return f'{type(self).__name__} @ {self.path}'
+
+
+class ParquetDataSet(FileBasedDataSet):
+    class Meta:
+        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
+
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" TOO LONG ***')
+
+        default_related_name = 'parquet_data_sets'
+
+        verbose_name = 'Parquet Data Set'
+        verbose_name_plural = 'Parquet Data Sets'
