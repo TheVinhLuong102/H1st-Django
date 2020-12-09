@@ -32,7 +32,6 @@ class H1stDjangoModel(PolymorphicModel, H1stCoreModel):
 
     class Meta:
         db_table = f"{H1stModelAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
@@ -97,7 +96,6 @@ class Decision(Model):
 
     class Meta:
         db_table = f"{H1stModelAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
@@ -160,7 +158,6 @@ class H1stModelEvalMetricsSet(Model):
 
     class Meta:
         db_table = f"{H1stModelAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 

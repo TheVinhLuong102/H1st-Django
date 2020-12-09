@@ -26,7 +26,6 @@ class DataSchema(PolymorphicModel):
 
     class Meta:
         db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
@@ -67,7 +66,6 @@ class DataSet(PolymorphicModel):
 
     class Meta:
         db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
@@ -92,7 +90,6 @@ class JSONDataSet(DataSet):
 
     class Meta:
         db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
@@ -120,7 +117,6 @@ class FileBasedDataSet(DataSet):
 
     class Meta:
         db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
@@ -136,7 +132,6 @@ class FileBasedDataSet(DataSet):
 class ParquetDataSet(FileBasedDataSet):
     class Meta:
         db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" TOO LONG ***')
 
