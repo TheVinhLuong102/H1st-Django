@@ -17,6 +17,7 @@ Uvloop >= 0.14.0
     # required by Uvicorn
 
 # Database Connectors/Drivers
+MySQLClient >= 2.0.2
 PsycoPG2-binary >= 2.8.6
 
 # Other
