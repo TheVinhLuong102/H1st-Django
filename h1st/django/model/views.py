@@ -18,7 +18,7 @@ def model_call_on_json_input_data(request, model_uuid, json_input_data):
     Decision.objects.create(
         input_data=json_input_data,
         model=model,
-        model_code=getsource(type(model)),
+        model_code={model.uuid: getsource(type(model))},
         output_data=json_output_data)
 
     return JsonResponse(
