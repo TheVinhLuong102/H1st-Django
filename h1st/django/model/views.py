@@ -19,7 +19,7 @@ def model_call_on_json_input_data(request, model_uuid, json_input_data):
         input_data=json_input_data,
         model=model,
         model_code=getsource(type(model)),
-        output_json=json_output_data)
+        output_data=json_output_data)
 
     return JsonResponse(
             data=json_output_data,
