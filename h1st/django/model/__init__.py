@@ -3,7 +3,7 @@ from django.apps.config import AppConfig
 from pathlib import Path
 
 
-class H1stModelAppConfig(AppConfig):
+class H1stModelModuleConfig(AppConfig):
     # AppConfig.name
     # Full Python path to the application, e.g. 'django.contrib.admin'.
     # This attribute defines which application the configuration applies to.

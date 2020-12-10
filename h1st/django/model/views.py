@@ -1,23 +1,28 @@
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import JsonResponse
 
+from inspect import getsource
 import json
 
-from ..data.models import JSONDataSet
-from .models import H1stDjangoModel, Decision
+from ..trust.models import Decision
+from .models import H1stModel
 
 
-def h1st_model_call(request, h1st_model_uuid, input_data):
-    input_json = json.loads(input_data)
+def model_call_on_json_input_data(request, model_uuid, json_input_data):
+    model = H1stModel.objects.get(uuid=model_uuid)
 
-    json_data_set = JSONDataSet.objects.create(json=input_json)
+    json_input_data = json.loads(json_input_data)
 
-    h1st_model = H1stDjangoModel.objects.get(uuid=h1st_model_uuid)
-
-    decision_output_json = h1st_model(input_json)
+    json_output_data = model(json_input_data)
 
     Decision.objects.create(
-        data_set=json_data_set,
-        h1st_model=h1st_model,
-        output_json=decision_output_json)
+        input_data=json_input_data,
+        model=model,
+        model_code=getsource(type(model)),
+        output_json=json_output_data)
 
-    return JsonResponse(decision_output_json)
+    return JsonResponse(
+            data=json_output_data,
+            encoder=DjangoJSONEncoder,
+            safe=True,
+            json_dumps_params=None)

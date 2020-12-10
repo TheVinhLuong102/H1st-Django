@@ -1,60 +1,78 @@
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import PROTECT
-from django.db.models.fields import CharField, UUIDField
+from django.db.models.fields import CharField
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey
 
 from polymorphic.models import PolymorphicModel
 
 from json.decoder import JSONDecoder
-from uuid import uuid4
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
-from . import H1stDataAppConfig
+from ..util.models import DjangoModelWithUUIDPKAndTimestamps
+from . import H1stDataModuleConfig
 
 
-class DataSchema(PolymorphicModel):
-    uuid = \
-        UUIDField(
-            verbose_name='UUID',
-            default=uuid4,
-            primary_key=True,
-            null=False,   # implied
-            unique=True,   # implied
+class DataSchema(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
+    name = \
+        CharField(
+            verbose_name='Data Schema Unique Name',
+            help_text='Data Schema Unique Name',
+            max_length=255,
+            null=False,
+            blank=False,
             db_index=True,
-            editable=False)
+            default=None,
+            editable=True,
+            unique=True)
+
+    specs = \
+        JSONField(
+            verbose_name='Data Schema Specifications',
+            help_text='Data Schema Specifications',
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+            null=False,
+            blank=False,
+            default=None,
+            editable=True)
 
     class Meta:
-        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" TOO LONG ***')
-
-        default_related_name = 'data_schemas'
-
         verbose_name = 'Data Schema'
         verbose_name_plural = 'Data Schemas'
 
-    def __str__(self):
-        return f'{type(self).__name__} #{self.uuid}'
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'data_schemas'
+
+        ordering = 'name',
+
+    def __str__(self) -> str:
+        return f'"{self.name}" {type(self).__name__}: {self.specs}'
 
 
-class DataSet(PolymorphicModel):
+class DataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
     RELATED_NAME = 'data_sets'
     RELATED_QUERY_NAME = 'data_set'
 
-    uuid = \
-        UUIDField(
-            verbose_name='UUID',
-            default=uuid4,
-            primary_key=True,
-            null=False,   # implied
-            unique=True,   # implied
+    name = \
+        CharField(
+            verbose_name='Data Set Unique Name',
+            help_text='Data Set Unique Name',
+            max_length=255,
+            null=False,
+            blank=False,
             db_index=True,
-            editable=False)
+            default=None,
+            editable=True,
+            unique=True)
 
     schema = \
         ForeignKey(
-            verbose_name='Schema',
+            verbose_name='Data Set Schema',
+            help_text='Data Set Schema',
             to=DataSchema,
             on_delete=PROTECT,
             related_name=RELATED_NAME,
@@ -62,80 +80,82 @@ class DataSet(PolymorphicModel):
             null=True,
             blank=True,
             db_index=True,   # implied
-            help_text='Schema')
+            default=None,
+            editable=True)
 
     class Meta:
-        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" TOO LONG ***')
-
-        default_related_name = 'data_sets'
-
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'
 
-    def __str__(self):
-        return f'{type(self).__name__} #{self.uuid}'
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'data_sets'
+
+        ordering = 'name',
+
+    def __str__(self) -> str:
+        return f'"{self.name}" {type(self).__name__}'
 
 
 class JSONDataSet(DataSet):
     json = \
         JSONField(
             verbose_name='JSON Data Content',
+            help_text='JSON Data Content',
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,
             null=True,
             blank=True,
-            help_text='JSON Data Content')
+            default=None,
+            editable=True)
 
-    class Meta:
-        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" TOO LONG ***')
-
-        default_related_name = 'json_data_sets'
-
+    class Meta(DataSet.Meta):
         verbose_name = 'JSON Data Set'
         verbose_name_plural = 'JSON Data Sets'
 
-    def __str__(self):
-        return f'{type(self).__name__} #{self.uuid}'
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'json_data_sets'
 
 
-class FileBasedDataSet(DataSet):
+class FileStoredDataSet(DataSet):
     path = \
         CharField(
-            verbose_name='Path',
+            verbose_name='Data Set Directory/File/URL Path',
+            help_text='Data Set Directory/File/URL Path',
             max_length=255,
             null=False,
             blank=False,
             db_index=True,
             default=None,
             editable=True,
-            unique=False,
-            help_text='Path')
+            unique=False)
 
-    class Meta:
-        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
+    class Meta(DataSet.Meta):
+        verbose_name = 'File-Stored Data Set'
+        verbose_name_plural = 'File-Stored Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" TOO LONG ***')
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'file_based_data_sets'
+        default_related_name = 'file_stored_data_sets'
 
-        verbose_name = 'File-Based Data Set'
-        verbose_name_plural = 'File-Based Data Sets'
-
-    def __str__(self):
-        return f'{type(self).__name__} @ {self.path}'
+    def __str__(self) -> str:
+        return f'"{self.name}" {type(self).__name__} @ {self.path}'
 
 
-class ParquetDataSet(FileBasedDataSet):
-    class Meta:
-        db_table = f"{H1stDataAppConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" TOO LONG ***')
-
-        default_related_name = 'parquet_data_sets'
-
+class ParquetDataSet(FileStoredDataSet):
+    class Meta(FileStoredDataSet.Meta):
         verbose_name = 'Parquet Data Set'
         verbose_name_plural = 'Parquet Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'parquet_data_sets'
