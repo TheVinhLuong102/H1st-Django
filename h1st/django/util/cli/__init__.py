@@ -1,16 +1,14 @@
 import os
 from pathlib import Path
-from ruamel import yaml
 import shutil
 from typing import Optional
 
+from .. import _H1ST_DJANGO_CONFIG_FILE_NAME, parse_config_file
 from ..git import _GIT_HASH_FILE_NAME, get_git_repo_head_commit_hash
 
 
 _H1ST_DJANGO_UTIL_CLI_STANDARD_FILES_DIR_PATH = \
     Path(__file__).parent / '_standard_files'
-
-_H1ST_DJANGO_CONFIG_FILE_NAME = '.config.yml'
 
 _MANAGE_PY_FILE_NAME = 'manage.py'
 _MANAGE_PY_FILE_SRC_PATH = \
@@ -34,14 +32,8 @@ def run_command_with_config_file(
     h1st_django_config_file_path = \
         Path(h1st_django_config_file_path).expanduser()
 
-    config = yaml.safe_load(stream=open(h1st_django_config_file_path))
-
-    db_config = config['db']
-    assert db_config['host'] \
-       and db_config['user'] \
-       and db_config['password'] \
-       and db_config['db-name'] \
-       and db_config['engine']
+    # verify config file is valid
+    parse_config_file(path=h1st_django_config_file_path)
 
     assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
     shutil.copyfile(
