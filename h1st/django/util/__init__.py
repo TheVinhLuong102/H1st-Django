@@ -14,20 +14,20 @@ def parse_config_file(path=_H1ST_DJANGO_CONFIG_FILE_NAME):
     db_config = config.get('db')
     assert db_config, f'*** "db" KEY NOT FOUND IN {config} ***'
 
-    db_host = db_config.pop('host')
+    db_host = db_config.get('host')
     assert db_host, f'*** "host" KEY NOT FOUND IN {db_config} ***'
 
-    db_engine = db_config.pop('engine')
+    db_engine = db_config.get('engine')
     assert db_engine, f'*** "engine" KEY NOT FOUND IN {db_config} ***'
     assert db_engine in ('postgresql', 'mysql'), \
         ValueError(f'*** "{db_engine}" DATABASE ENGINE NOT SUPPORTED ***')
 
-    db_user = db_config.pop('user')
+    db_user = db_config.get('user')
     assert db_user, f'*** "user" KEY NOT FOUND IN {db_config} ***'
-    db_password = db_config.pop('password')
+    db_password = db_config.get('password')
     assert db_password, f'*** "password" KEY NOT FOUND IN {db_config} ***'
 
-    db_name = db_config.pop('name')
+    db_name = db_config.get('name')
     assert db_name, f'*** "name" KEY NOT FOUND IN {db_config} ***'
 
     config['db'] = dict(HOST=db_host,
