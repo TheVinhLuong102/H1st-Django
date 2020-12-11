@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from ruamel import yaml
 
 
@@ -38,3 +39,9 @@ def parse_config_file(path=_H1ST_DJANGO_CONFIG_FILE_NAME):
                             NAME=db_name)
 
         return config
+
+    else:
+        return yaml.safe_load(stream=open(Path(__file__).parent /
+                                          'cli' /
+                                          '_standard_files' /
+                                          '.config.yml.template'))
