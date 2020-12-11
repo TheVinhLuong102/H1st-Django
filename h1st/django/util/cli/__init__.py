@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 from typing import Optional
 
-from .. import _H1ST_DJANGO_CONFIG_FILE_NAME, parse_config_file
+from ..config import _H1ST_DJANGO_CONFIG_FILE_NAME, parse_config_file
 from ..git import _GIT_HASH_FILE_NAME, get_git_repo_head_commit_hash
 
 
