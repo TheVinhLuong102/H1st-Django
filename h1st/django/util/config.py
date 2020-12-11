@@ -41,7 +41,9 @@ def parse_config_file(path=_H1ST_DJANGO_CONFIG_FILE_NAME):
         return config
 
     else:
-        return yaml.safe_load(stream=open(Path(__file__).parent /
-                                          'cli' /
-                                          '_standard_files' /
-                                          '.config.yml.template'))
+        # return blank config per template
+        return yaml.safe_load(
+                stream=open(Path(__file__).parent /
+                            'cli' /
+                            '_standard_files' /
+                            f'{_H1ST_DJANGO_CONFIG_FILE_NAME}.template'))
