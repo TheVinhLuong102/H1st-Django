@@ -10,7 +10,9 @@ from json.decoder import JSONDecoder
 
 from ..model.models import H1stModel
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
+from ..util.git import get_git_repo_head_commit_hash
 from ..util.models import DjangoModelWithUUIDPKAndTimestamps
+from ..util.pip import get_python_dependencies
 from . import H1stTrustModuleConfig
 
 
@@ -120,6 +122,28 @@ class Decision(DjangoModelWithUUIDPKAndTimestamps):
             null=False,
             blank=False,
             default=None,
+            editable=True)
+
+    git_repo_head_commit_hash = \
+        CharField(
+            verbose_name='Git Repository Head Commit Hash',
+            help_text='Git Repository Head Commit Hash',
+            max_length=40,
+            null=True,
+            blank=True,
+            db_index=True,
+            default=get_git_repo_head_commit_hash,
+            editable=True)
+
+    python_dependencies = \
+        JSONField(
+            verbose_name='Python Dependencies',
+            help_text='Python Dependencies',
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+            null=False,
+            blank=False,
+            default=get_python_dependencies,
             editable=True)
 
     output_data = \
