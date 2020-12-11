@@ -34,13 +34,14 @@ def run_command_with_config_file(
     h1st_django_config_file_path = \
         Path(h1st_django_config_file_path).expanduser()
 
-    configs = yaml.safe_load(stream=open(h1st_django_config_file_path))
+    config = yaml.safe_load(stream=open(h1st_django_config_file_path))
 
-    db_creds = configs['db']
-    assert db_creds['host'] \
-       and db_creds['user'] \
-       and db_creds['password'] \
-       and db_creds['db-name']
+    db_config = config['db']
+    assert db_config['host'] \
+       and db_config['user'] \
+       and db_config['password'] \
+       and db_config['db-name'] \
+       and db_config['engine']
 
     assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
     shutil.copyfile(
