@@ -25,12 +25,6 @@ class H1stDataModuleConfig(AppConfig):
     # This attribute defaults to label.title().
     verbose_name = 'Human-First AI: Data'
 
-    # *** DURING AWS EB DEPLOYMENT ***
-    # The app module <module '...' (namespace)>
-    # has multiple filesystem locations (['...', '...']);
-    # you must configure this app with an AppConfig subclass
-    # with a 'path' class attribute.
-
     # AppConfig.path
     # Filesystem path to the application directory,
     # e.g. '/usr/lib/pythonX.Y/dist-packages/django/contrib/admin'.
@@ -39,4 +33,4 @@ class H1stDataModuleConfig(AppConfig):
     # on your AppConfig subclass.
     # In a few situations this is required; for instance if the app package
     # is a namespace package with multiple paths.
-    path = Path(__file__).parent
+    # path = Path(__file__).parent
