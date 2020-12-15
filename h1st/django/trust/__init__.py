@@ -1,7 +1,5 @@
 from django.apps.config import AppConfig
 
-from pathlib import Path
-
 
 class H1stTrustModuleConfig(AppConfig):
     # AppConfig.name

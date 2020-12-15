@@ -1,7 +1,5 @@
 from django.apps.config import AppConfig
 
-from pathlib import Path
-
 
 class H1stModelModuleConfig(AppConfig):
     # AppConfig.name
