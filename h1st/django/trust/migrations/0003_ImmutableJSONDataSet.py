@@ -9,7 +9,7 @@ import json.decoder
 
 
 class Migration(migrations.Migration):
-    dependencies = ('H1stTrust', '0001_initial'),
+    dependencies = ('H1stTrust', '0002_Decision_GitHash_PyDeps'),
 
     operations = \
         migrations.CreateModel(
