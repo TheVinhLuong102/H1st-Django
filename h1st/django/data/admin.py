@@ -7,9 +7,7 @@ from silk.profiling.profiler import silk_profile
 from .models import DataSchema, JSONDataSet, ParquetDataSet, TFRecordDataSet
 
 
-@register(
-    DataSchema,
-    site=site)
+@register(DataSchema, site=site)
 class DataSchemaAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -22,9 +20,7 @@ class DataSchemaAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    JSONDataSet,
-    site=site)
+@register(JSONDataSet, site=site)
 class JSONDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -38,9 +34,7 @@ class JSONDataSetAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    ParquetDataSet,
-    site=site)
+@register(ParquetDataSet, site=site)
 class ParquetDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -54,9 +48,7 @@ class ParquetDataSetAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    TFRecordDataSet,
-    site=site)
+@register(TFRecordDataSet, site=site)
 class TFRecordDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 

@@ -7,9 +7,7 @@ from silk.profiling.profiler import silk_profile
 from .models import H1stModel
 
 
-@register(
-    H1stModel,
-    site=site)
+@register(H1stModel, site=site)
 class H1stModelAdmin(ModelAdmin):
     show_full_result_count = False
 

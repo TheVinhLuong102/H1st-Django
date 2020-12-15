@@ -10,9 +10,7 @@ from .models import \
     ModelEvalMetricsSet
 
 
-@register(
-    ImmutableJSONDataSet,
-    site=site)
+@register(ImmutableJSONDataSet, site=site)
 class ImmutableJSONDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -27,9 +25,7 @@ class ImmutableJSONDataSetAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    ImmutableParquetDataSet,
-    site=site)
+@register(ImmutableParquetDataSet, site=site)
 class ImmutableParquetDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -45,9 +41,7 @@ class ImmutableParquetDataSetAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    ImmutableTFRecordDataSet,
-    site=site)
+@register(ImmutableTFRecordDataSet, site=site)
 class ImmutableTFRecordDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -63,9 +57,7 @@ class ImmutableTFRecordDataSetAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    Decision,
-    site=site)
+@register(Decision, site=site)
 class DecisionAdmin(ModelAdmin):
     show_full_result_count = False
 
@@ -78,9 +70,7 @@ class DecisionAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(
-    ModelEvalMetricsSet,
-    site=site)
+@register(ModelEvalMetricsSet, site=site)
 class ModelEvalMetricsSetAdmin(ModelAdmin):
     show_full_result_count = False
 
