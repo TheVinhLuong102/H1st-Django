@@ -11,6 +11,8 @@ from .models import H1stModel
     H1stModel,
     site=site)
 class H1stModelAdmin(ModelAdmin):
+    show_full_result_count = False
+
     @silk_profile(name=f'{__module__}: {H1stModel._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)

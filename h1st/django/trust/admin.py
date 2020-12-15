@@ -14,6 +14,8 @@ from .models import \
     ImmutableJSONDataSet,
     site=site)
 class ImmutableJSONDataSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
     @silk_profile(
         name=f'{__module__}: {ImmutableJSONDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
@@ -29,6 +31,8 @@ class ImmutableJSONDataSetAdmin(ModelAdmin):
     ImmutableParquetDataSet,
     site=site)
 class ImmutableParquetDataSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
     @silk_profile(
         name=f'{__module__}: {ImmutableParquetDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
@@ -45,6 +49,8 @@ class ImmutableParquetDataSetAdmin(ModelAdmin):
     ImmutableTFRecordDataSet,
     site=site)
 class ImmutableTFRecordDataSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
     @silk_profile(
         name=f'{__module__}: {ImmutableTFRecordDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
@@ -61,6 +67,8 @@ class ImmutableTFRecordDataSetAdmin(ModelAdmin):
     Decision,
     site=site)
 class DecisionAdmin(ModelAdmin):
+    show_full_result_count = False
+
     @silk_profile(name=f'{__module__}: {Decision._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
@@ -74,6 +82,8 @@ class DecisionAdmin(ModelAdmin):
     ModelEvalMetricsSet,
     site=site)
 class ModelEvalMetricsSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
     @silk_profile(
         name=f'{__module__}: {ModelEvalMetricsSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
