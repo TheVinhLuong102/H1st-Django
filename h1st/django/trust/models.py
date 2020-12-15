@@ -43,6 +43,33 @@ class ImmutableDataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
         return f'{type(self).__name__} #{self.uuid}'
 
 
+class ImmutableJSONDataSet(ImmutableDataSet):
+    json = \
+        JSONField(
+            verbose_name='Immutable JSON Data Content',
+            help_text='Immutable JSON Data Content',
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+            null=True,
+            blank=True,
+            default=None,
+            editable=True)
+
+    class Meta(ImmutableDataSet.Meta):
+        verbose_name = 'Immutable JSON Data Set'
+        verbose_name_plural = 'Immutable JSON Data Sets'
+
+        db_table = \
+            f"{H1stTrustModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'immutable_json_data_sets'
+
+    def __str__(self) -> str:
+        return f'{type(self).__name__} #{self.uuid} @ {self.path}'
+
+
 class ImmutableFileStoredDataSet(ImmutableDataSet):
     path = \
         CharField(

@@ -2,7 +2,17 @@ from django.contrib.admin.decorators import register
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import site
 
-from .models import ImmutableParquetDataSet, Decision, ModelEvalMetricsSet
+from .models import \
+    ImmutableJSONDataSet, ImmutableParquetDataSet, \
+    Decision, \
+    ModelEvalMetricsSet
+
+
+@register(
+    ImmutableJSONDataSet,
+    site=site)
+class ImmutableJSONDataSetAdmin(ModelAdmin):
+    pass
 
 
 @register(
