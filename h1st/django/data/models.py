@@ -159,3 +159,15 @@ class ParquetDataSet(FileStoredDataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'parquet_data_sets'
+
+
+class TFRecordDataSet(FileStoredDataSet):
+    class Meta(FileStoredDataSet.Meta):
+        verbose_name = 'TensorFlow Record Data Set'
+        verbose_name_plural = 'TensorFlow Record Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'tfrecord_data_sets'
