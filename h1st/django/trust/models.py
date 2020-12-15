@@ -111,6 +111,19 @@ class ImmutableParquetDataSet(ImmutableFileStoredDataSet):
         default_related_name = 'immutable_parquet_data_sets'
 
 
+class ImmutableTFRecordDataSet(ImmutableFileStoredDataSet):
+    class Meta(ImmutableFileStoredDataSet.Meta):
+        verbose_name = 'Immutable TensorFlow Record Data Set'
+        verbose_name_plural = 'Immutable TensorFlow Record Data Sets'
+
+        db_table = \
+            f"{H1stTrustModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'immutable_tfrecord_data_sets'
+
+
 class Decision(DjangoModelWithUUIDPKAndTimestamps):
     RELATED_NAME = 'decisions'
     RELATED_QUERY_NAME = 'decision'

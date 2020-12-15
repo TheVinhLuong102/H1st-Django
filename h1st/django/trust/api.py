@@ -1,5 +1,7 @@
 from .models import \
-    ImmutableDataSet, ImmutableJSONDataSet, \
-    ImmutableFileStoredDataSet, ImmutableParquetDataSet, \
+    ImmutableDataSet, \
+    ImmutableJSONDataSet, \
+    ImmutableFileStoredDataSet, \
+    ImmutableParquetDataSet, ImmutableTFRecordDataSet, \
     Decision, \
     ModelEvalMetricsSet

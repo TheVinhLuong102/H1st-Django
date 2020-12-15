@@ -3,7 +3,7 @@ from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import site
 
 from .models import \
-    ImmutableJSONDataSet, ImmutableParquetDataSet, \
+    ImmutableJSONDataSet, ImmutableParquetDataSet, ImmutableTFRecordDataSet, \
     Decision, \
     ModelEvalMetricsSet
 
@@ -19,6 +19,13 @@ class ImmutableJSONDataSetAdmin(ModelAdmin):
     ImmutableParquetDataSet,
     site=site)
 class ImmutableParquetDataSetAdmin(ModelAdmin):
+    pass
+
+
+@register(
+    ImmutableTFRecordDataSet,
+    site=site)
+class ImmutableTFRecordDataSetAdmin(ModelAdmin):
     pass
 
 
