@@ -4,7 +4,7 @@ from polymorphic.models import PolymorphicModel
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from ..util.models import DjangoModelWithUUIDPKAndTimestamps
-from . import H1stModelModuleConfig
+from .apps import H1stModelModuleConfig
 
 
 class Model(

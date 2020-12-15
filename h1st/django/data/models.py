@@ -10,7 +10,7 @@ from json.decoder import JSONDecoder
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from ..util.models import DjangoModelWithUUIDPKAndTimestamps
-from . import H1stDataModuleConfig
+from .apps import H1stDataModuleConfig
 
 
 class DataSchema(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):

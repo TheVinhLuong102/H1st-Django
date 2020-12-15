@@ -13,7 +13,7 @@ from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from ..util.git import get_git_repo_head_commit_hash
 from ..util.models import DjangoModelWithUUIDPKAndTimestamps
 from ..util.pip import get_python_dependencies
-from . import H1stTrustModuleConfig
+from .apps import H1stTrustModuleConfig
 
 
 class ImmutableDataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
