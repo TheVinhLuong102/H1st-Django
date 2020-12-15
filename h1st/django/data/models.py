@@ -50,7 +50,7 @@ class DataSchema(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
         ordering = 'name',
 
     def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__}: {self.specs}'
+        return f'"{self.name}" {type(self).__name__}'
 
 
 class DataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
