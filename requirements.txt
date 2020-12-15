@@ -5,6 +5,7 @@ H1st >= 2020.8
 Django >= 3.1.4
 Django-Model-Utils >= 4.1.1
 Django-Polymorphic >= 3.0.0
+Django-Silk >= 4.1.0
 Django-Storages >= 1.10.1
 
 # ASGI Servers
