@@ -24,6 +24,7 @@ PsycoPG2-binary >= 2.8.6
 
 # Other
 GitPython >= 3.1.11
+Pandas >= 1.1.5
 Ruamel.YAML >= 0.16.12
 Tqdm >= 4.54.1
 
