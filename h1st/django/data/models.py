@@ -1,4 +1,5 @@
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models.base import Model
 from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
 from django.db.models.fields import BooleanField, CharField
 from django.db.models.fields.json import JSONField
@@ -137,40 +138,7 @@ class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
         return f'{type(self).__name__} #{self.uuid}'
 
 
-class NamedDataSet(DataSet):
-    RELATED_NAME = 'named_data_sets'
-    RELATED_QUERY_NAME = 'named_data_set'
-
-    named_data_set_ptr = \
-        OneToOneField(
-            to=DataSet,
-            on_delete=CASCADE,
-            limit_choices_to={},
-            related_name=RELATED_QUERY_NAME,
-            related_query_name=RELATED_QUERY_NAME,
-            # to_field=...,
-            db_constraint=True,
-            swappable=True,
-
-            parent_link=True,
-
-            null=False,
-            blank=False,
-            choices=None,
-            db_column=None,
-            db_index=True,   # implied
-            db_tablespace=None,
-            default=None,
-            editable=False,
-            # error_messages=None,
-            # help_text=...,
-            primary_key=True,
-            unique=True,   # implied
-            unique_for_date=None, unique_for_month=None, unique_for_year=None,
-            # verbose_name=...,
-            # validators=None
-        )
-
+class _NamedDataSet(Model):
     name = \
         CharField(
             verbose_name='Data Set Unique Name',
@@ -194,14 +162,7 @@ class NamedDataSet(DataSet):
         )
 
     class Meta(DataSet.Meta):
-        verbose_name = 'Named Data Set'
-        verbose_name_plural = 'Named Data Sets'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_data_sets'
+        abstract = True
 
         ordering = 'name',
 
@@ -244,8 +205,8 @@ class JSONDataSet(DataSet):
         default_related_name = 'json_data_sets'
 
 
-class NamedJSONDataSet(NamedDataSet, JSONDataSet):
-    class Meta(NamedDataSet.Meta):
+class NamedJSONDataSet(_NamedDataSet, JSONDataSet):
+    class Meta(_NamedDataSet.Meta, JSONDataSet.Meta):
         verbose_name = 'Named JSON Data Set'
         verbose_name_plural = 'Named JSON Data Sets'
 
@@ -319,8 +280,8 @@ class ParquetDataSet(_FileStoredDataSet):
         default_related_name = 'parquet_data_sets'
 
 
-class NamedParquetDataSet(NamedDataSet, ParquetDataSet):
-    class Meta(NamedDataSet.Meta):
+class NamedParquetDataSet(_NamedDataSet, ParquetDataSet):
+    class Meta(_NamedDataSet.Meta, ParquetDataSet.Meta):
         verbose_name = 'Named Parquet Data Set'
         verbose_name_plural = 'Named Parquet Data Sets'
 
@@ -343,8 +304,8 @@ class TFRecordDataSet(_FileStoredDataSet):
         default_related_name = 'tfrecord_data_sets'
 
 
-class NamedTFRecordDataSet(NamedDataSet, TFRecordDataSet):
-    class Meta(NamedDataSet.Meta):
+class NamedTFRecordDataSet(_NamedDataSet, TFRecordDataSet):
+    class Meta(_NamedDataSet.Meta, TFRecordDataSet.Meta):
         verbose_name = 'Named TFRecord Data Set'
         verbose_name_plural = 'Named TFRecord Data Sets'
 

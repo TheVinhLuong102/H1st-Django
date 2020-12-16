@@ -1,6 +1,5 @@
 from .models import \
-    DataSchema, \
-    DataSet, NamedDataSet, \
+    DataSchema, DataSet, \
     JSONDataSet, NamedJSONDataSet, \
     ParquetDataSet, NamedParquetDataSet, \
     TFRecordDataSet, NamedTFRecordDataSet
