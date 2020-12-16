@@ -258,8 +258,8 @@ class _FileStoredDataSet(DataSet):
                f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
 
 
-class ParquetDataSet(FileStoredDataSet):
-    class Meta(FileStoredDataSet.Meta):
+class ParquetDataSet(_FileStoredDataSet):
+    class Meta(_FileStoredDataSet.Meta):
         verbose_name = 'Parquet Data Set'
         verbose_name_plural = 'Parquet Data Sets'
 
@@ -270,8 +270,18 @@ class ParquetDataSet(FileStoredDataSet):
         default_related_name = 'parquet_data_sets'
 
 
-class TFRecordDataSet(FileStoredDataSet):
-    class Meta(FileStoredDataSet.Meta):
+class NamedParquetDataSet(NamedDataSet, ParquetDataSet):
+    class Meta(NamedDataSet.Meta, ParquetDataSet.Meta):
+        verbose_name = 'Named Parquet Data Set'
+        verbose_name_plural = 'Named Parquet Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'named_parquet_data_sets'
+
+
         verbose_name = 'TensorFlow Record Data Set'
         verbose_name_plural = 'TensorFlow Record Data Sets'
 
