@@ -195,15 +195,16 @@ class JSONDataSet(DataSet):
         default_related_name = 'json_data_sets'
 
 
-    class Meta(DataSet.Meta):
-        verbose_name = 'JSON Data Set'
-        verbose_name_plural = 'JSON Data Sets'
+class NamedJSONDataSet(NamedDataSet, JSONDataSet):
+    class Meta(NamedDataSet.Meta, JSONDataSet.Meta):
+        verbose_name = 'Named JSON Data Set'
+        verbose_name_plural = 'Named JSON Data Sets'
 
         db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'json_data_sets'
+        default_related_name = 'named_json_data_sets'
 
 
 class FileStoredDataSet(DataSet):
