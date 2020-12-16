@@ -1,17 +1,14 @@
-from h1st.core.model import Model as BaseH1stModel
+from h1st.core.model import Model as _CoreH1stModel
 
 from polymorphic.models import PolymorphicModel
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
-from ..util.models import DjangoModelWithUUIDPKAndTimestamps
+from ..util.models import _ModelWithUUIDPKAndTimestamps
 from .apps import H1stModelModuleConfig
 
 
-class Model(
-        PolymorphicModel,
-        DjangoModelWithUUIDPKAndTimestamps,
-        BaseH1stModel):
-    class Meta(DjangoModelWithUUIDPKAndTimestamps.Meta):
+class Model(PolymorphicModel, _ModelWithUUIDPKAndTimestamps, _CoreH1stModel):
+    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
         verbose_name = 'H1st Model'
         verbose_name_plural = 'H1st Models'
 
