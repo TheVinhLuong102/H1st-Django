@@ -8,6 +8,7 @@ from django.db.models.fields.related import ForeignKey
 from polymorphic.models import PolymorphicModel
 
 from json.decoder import JSONDecoder
+import pandas
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
 from ..util.models import _ModelWithUUIDPKAndTimestamps
@@ -278,6 +279,13 @@ class ParquetDataSet(_FileStoredDataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'parquet_data_sets'
+
+    def to_pandas(self, engine='pyarrow', columns=None, **kwargs):
+        return pandas.read_parquet(
+                path=self.path,
+                engine=engine,
+                columns=columns,
+                **kwargs)
 
 
 class NamedParquetDataSet(_NamedDataSet, ParquetDataSet):
