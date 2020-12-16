@@ -207,31 +207,55 @@ class NamedJSONDataSet(NamedDataSet, JSONDataSet):
         default_related_name = 'named_json_data_sets'
 
 
-class FileStoredDataSet(DataSet):
+class _FileStoredDataSet(DataSet):
     path = \
         CharField(
-            verbose_name='Data Set Directory/File/URL Path',
-            help_text='Data Set Directory/File/URL Path',
+            verbose_name='Data Set Path/URL',
+            help_text='Data Set Path/URL',
+
             max_length=255,
+
             null=False,
             blank=False,
+            choices=None,
+            db_column=None,
             db_index=True,
+            db_tablespace=None,
             default=None,
             editable=True,
-            unique=False)
+            # error_messages=None,
+            primary_key=False,
+
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    is_dir = \
+        BooleanField(
+            verbose_name='Data Set Path/URL is Directory?',
+            help_text='Data Set Path/URL is Directory?',
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=False,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
 
     class Meta(DataSet.Meta):
-        verbose_name = 'File-Stored Data Set'
-        verbose_name_plural = 'File-Stored Data Sets'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'file_stored_data_sets'
+        abstract = True
 
     def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__} @ {self.path}'
+        return f'{type(self).__name__} #{self.uuid} ' \
+               f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
 
 
 class ParquetDataSet(FileStoredDataSet):
