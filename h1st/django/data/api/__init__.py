@@ -1,4 +1,4 @@
-from .models import \
+from ..models import \
     DataSchema, DataSet, \
     JSONDataSet, NamedJSONDataSet, \
     ParquetDataSet, NamedParquetDataSet, \
