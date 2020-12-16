@@ -1,15 +1,39 @@
-# Human-First AI
+# HUMAN-FIRST AI
 H1st >= 2020.8
 
-# Django and related
+
+# DJANGO
 Django >= 3.1.4
+
+# Django Polymorphic Models
+Django-Polymorphic >= 3.0.0
+
+# Django-AutoComplete-Light & related
+Django-AutoComplete-Light >= 3.8.1
+Django-Generic-M2M >= 0.3.1
+Django-GM2M >= 1.1.1
+Django-QuerySetSequence >= 0.13
+Django-Tagging >= 0.5.0
+Django-Taggit >= 1.3.0
+
+# Django REST Framework
+DjangoRESTFramework >= 3.12.2
+DjangoRESTFramework-JSONAPI >= 4.0.0
+
+# Django Filtering
+Django-Filter >= 2.4.0
+DjangoRESTFramework-Filters == 1.0.0.dev2
+
+# Django Query Profiling
+Django-Silk >= 4.1.0
+
+# Django Extensions & Utilities
 Django-Extensions >= 3.1.0
 Django-Model-Utils >= 4.1.1
-Django-Polymorphic >= 3.0.0
-Django-Silk >= 4.1.0
 Django-Storages >= 1.10.1
 
-# ASGI Servers
+
+# ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
 Daphne >= 3.0.1
 Hypercorn >= 0.11.1
 Uvicorn >= 0.13.1
@@ -18,15 +42,19 @@ HTTPTools >= 0.1.1
 Uvloop >= 0.14.0
     # required by Uvicorn
 
-# Database Connectors/Drivers
+
+# DATABASE CONNECTORS/DRIVERS
 MySQLClient >= 2.0.2
 PsycoPG2-binary >= 2.8.6
 
-# Other
+
+# OTHER
 GitPython >= 3.1.11
 Pandas >= 1.1.5
 Ruamel.YAML >= 0.16.12
 Tqdm >= 4.54.1
 
+
+# CLOUD
 # AWS Elastic Beanstalk
 AWSEBCLI >= 3.19.2
