@@ -9,7 +9,7 @@ from polymorphic.models import PolymorphicModel
 
 from json.decoder import JSONDecoder
 
-from ..util import PGSQL_IDENTIFIER_MAX_LEN
+from ..util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
 from ..util.models import _ModelWithUUIDPKAndTimestamps
 from .apps import H1stDataModuleConfig
 
@@ -264,8 +264,8 @@ class _FileStoredDataSet(DataSet):
         abstract = True
 
     def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.uuid} ' \
-               f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
+        return f'{type(self).__name__} #{self.uuid} @ ' \
+            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'
 
 
 class ParquetDataSet(_FileStoredDataSet):
@@ -292,8 +292,8 @@ class NamedParquetDataSet(_NamedDataSet, ParquetDataSet):
         default_related_name = 'named_parquet_data_sets'
 
     def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__} ' \
-               f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
+        return f'"{self.name}" {type(self).__name__} @ ' \
+            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'
 
 
 class TFRecordDataSet(_FileStoredDataSet):
@@ -320,5 +320,5 @@ class NamedTFRecordDataSet(_NamedDataSet, TFRecordDataSet):
         default_related_name = 'named_tfrecord_data_sets'
 
     def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__} ' \
-               f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
+        return f'"{self.name}" {type(self).__name__} @ ' \
+            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'
