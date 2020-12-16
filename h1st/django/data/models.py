@@ -9,11 +9,11 @@ from polymorphic.models import PolymorphicModel
 from json.decoder import JSONDecoder
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
-from ..util.models import DjangoModelWithUUIDPKAndTimestamps
+from ..util.models import _ModelWithUUIDPKAndTimestamps
 from .apps import H1stDataModuleConfig
 
 
-class DataSchema(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
+class DataSchema(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
     name = \
         CharField(
             verbose_name='Data Schema Unique Name',
@@ -59,7 +59,7 @@ class DataSchema(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
             # validators=None
         )
 
-    class Meta(DjangoModelWithUUIDPKAndTimestamps.Meta):
+    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
         verbose_name = 'Data Schema'
         verbose_name_plural = 'Data Schemas'
 
@@ -75,7 +75,7 @@ class DataSchema(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
         return f'"{self.name}" {type(self).__name__}'
 
 
-class DataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
+class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
     RELATED_NAME = 'data_sets'
     RELATED_QUERY_NAME = 'data_set'
 
@@ -104,7 +104,7 @@ class DataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
             # validators=None
         )
 
-    class Meta(DjangoModelWithUUIDPKAndTimestamps.Meta):
+    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'
 

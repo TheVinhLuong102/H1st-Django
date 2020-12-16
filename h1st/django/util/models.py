@@ -6,7 +6,7 @@ from model_utils.models import TimeStampedModel
 from uuid import uuid4
 
 
-class DjangoModelWithUUIDPK(Model):
+class _ModelWithUUIDPK(Model):
     uuid = \
         UUIDField(
             # docs.djangoproject.com/en/dev/ref/models/fields/#field-options
@@ -137,10 +137,10 @@ class DjangoModelWithUUIDPK(Model):
         # verbose_name_plural = ...
 
 
-class DjangoModelWithUUIDPKAndTimestamps(
-        DjangoModelWithUUIDPK,
+class _ModelWithUUIDPKAndTimestamps(
+        _ModelWithUUIDPK,
         TimeStampedModel):
-    class Meta(DjangoModelWithUUIDPK.Meta):
+    class Meta(_ModelWithUUIDPK.Meta):
         abstract = True
 
         get_latest_by = 'modified'
