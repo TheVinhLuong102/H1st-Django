@@ -100,7 +100,7 @@ class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
             related_query_name=RELATED_QUERY_NAME,
 
             # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.to_field
-            to_field='pk',
+            # to_field=...,
 
             # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.db_constraint
             db_constraint=True,
@@ -140,6 +140,36 @@ class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
 class NamedDataSet(DataSet):
     RELATED_NAME = 'named_data_sets'
     RELATED_QUERY_NAME = 'named_data_set'
+
+    named_data_set_ptr = \
+        OneToOneField(
+            to=DataSet,
+            on_delete=CASCADE,
+            limit_choices_to={},
+            related_name=RELATED_QUERY_NAME,
+            related_query_name=RELATED_QUERY_NAME,
+            # to_field=...,
+            db_constraint=True,
+            swappable=True,
+
+            parent_link=True,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,   # implied
+            db_tablespace=None,
+            default=None,
+            editable=False,
+            # error_messages=None,
+            # help_text=...,
+            primary_key=True,
+            unique=True,   # implied
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # verbose_name=...,
+            # validators=None
+        )
 
     name = \
         CharField(
@@ -215,7 +245,7 @@ class JSONDataSet(DataSet):
 
 
 class NamedJSONDataSet(NamedDataSet, JSONDataSet):
-    class Meta(NamedDataSet.Meta, JSONDataSet.Meta):
+    class Meta(NamedDataSet.Meta):
         verbose_name = 'Named JSON Data Set'
         verbose_name_plural = 'Named JSON Data Sets'
 
@@ -290,7 +320,7 @@ class ParquetDataSet(_FileStoredDataSet):
 
 
 class NamedParquetDataSet(NamedDataSet, ParquetDataSet):
-    class Meta(NamedDataSet.Meta, ParquetDataSet.Meta):
+    class Meta(NamedDataSet.Meta):
         verbose_name = 'Named Parquet Data Set'
         verbose_name_plural = 'Named Parquet Data Sets'
 
@@ -314,7 +344,7 @@ class TFRecordDataSet(_FileStoredDataSet):
 
 
 class NamedTFRecordDataSet(NamedDataSet, TFRecordDataSet):
-    class Meta(NamedDataSet.Meta, TFRecordDataSet.Meta):
+    class Meta(NamedDataSet.Meta):
         verbose_name = 'Named TFRecord Data Set'
         verbose_name_plural = 'Named TFRecord Data Sets'
 

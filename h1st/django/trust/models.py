@@ -51,7 +51,7 @@ class Decision(_ModelWithUUIDPKAndTimestamps):
             limit_choices_to={},
             related_name=RELATED_NAME,
             related_query_name=RELATED_QUERY_NAME,
-            to_field='pk',
+            # to_field=...,
             db_constraint=True,
             swappable=True,
 
@@ -191,7 +191,7 @@ class ModelEvalMetricsSet(_ModelWithUUIDPKAndTimestamps):
             limit_choices_to={},
             related_name=RELATED_NAME,
             related_query_name=RELATED_QUERY_NAME,
-            to_field='pk',
+            # to_field=...,
             db_constraint=True,
             swappable=True,
 
