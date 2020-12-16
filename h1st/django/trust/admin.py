@@ -4,57 +4,7 @@ from django.contrib.admin.sites import site
 
 from silk.profiling.profiler import silk_profile
 
-from .models import \
-    ImmutableJSONDataSet, ImmutableParquetDataSet, ImmutableTFRecordDataSet, \
-    Decision, \
-    ModelEvalMetricsSet
-
-
-@register(ImmutableJSONDataSet, site=site)
-class ImmutableJSONDataSetAdmin(ModelAdmin):
-    show_full_result_count = False
-
-    @silk_profile(
-        name=f'{__module__}: {ImmutableJSONDataSet._meta.verbose_name}')
-    def changeform_view(self, *args, **kwargs):
-        return super().changeform_view(*args, **kwargs)
-
-    @silk_profile(
-        name=f'{__module__}: {ImmutableJSONDataSet._meta.verbose_name_plural}')
-    def changelist_view(self, *args, **kwargs):
-        return super().changelist_view(*args, **kwargs)
-
-
-@register(ImmutableParquetDataSet, site=site)
-class ImmutableParquetDataSetAdmin(ModelAdmin):
-    show_full_result_count = False
-
-    @silk_profile(
-        name=f'{__module__}: {ImmutableParquetDataSet._meta.verbose_name}')
-    def changeform_view(self, *args, **kwargs):
-        return super().changeform_view(*args, **kwargs)
-
-    @silk_profile(
-        name=f'{__module__}: '
-             f'{ImmutableParquetDataSet._meta.verbose_name_plural}')
-    def changelist_view(self, *args, **kwargs):
-        return super().changelist_view(*args, **kwargs)
-
-
-@register(ImmutableTFRecordDataSet, site=site)
-class ImmutableTFRecordDataSetAdmin(ModelAdmin):
-    show_full_result_count = False
-
-    @silk_profile(
-        name=f'{__module__}: {ImmutableTFRecordDataSet._meta.verbose_name}')
-    def changeform_view(self, *args, **kwargs):
-        return super().changeform_view(*args, **kwargs)
-
-    @silk_profile(
-        name=f'{__module__}: '
-             f'{ImmutableTFRecordDataSet._meta.verbose_name_plural}')
-    def changelist_view(self, *args, **kwargs):
-        return super().changelist_view(*args, **kwargs)
+from .models import Decision, ModelEvalMetricsSet
 
 
 @register(Decision, site=site)
