@@ -33,7 +33,7 @@ def run_command_with_config_file(
         Path(h1st_django_config_file_path).expanduser()
 
     # verify config file is valid
-    parse_config_file(path=h1st_django_config_file_path)
+    config = parse_config_file(path=h1st_django_config_file_path)
 
     assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
     shutil.copyfile(
@@ -65,6 +65,14 @@ def run_command_with_config_file(
     if git_hash:
         with open(_GIT_HASH_FILE_NAME, 'w') as f:
             f.write(git_hash)
+
+    aws_config = config.get('aws')
+    if aws_config:
+        key = aws_config.get('key')
+        secret = aws_config.get('secret')
+        if key and secret:
+            os.environ.setdefault('AWS_ACCESS_KEY_ID', key)
+            os.environ.setdefault('AWS_SECRET_ACCESS_KEY', secret)
 
     os.system(command)
 
