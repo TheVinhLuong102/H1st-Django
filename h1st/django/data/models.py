@@ -282,11 +282,25 @@ class NamedParquetDataSet(NamedDataSet, ParquetDataSet):
         default_related_name = 'named_parquet_data_sets'
 
 
-        verbose_name = 'TensorFlow Record Data Set'
-        verbose_name_plural = 'TensorFlow Record Data Sets'
+class TFRecordDataSet(_FileStoredDataSet):
+    class Meta(_FileStoredDataSet.Meta):
+        verbose_name = 'TFRecord Data Set'
+        verbose_name_plural = 'TFRecord Data Sets'
 
         db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'tfrecord_data_sets'
+
+
+class NamedTFRecordDataSet(NamedDataSet, TFRecordDataSet):
+    class Meta(NamedDataSet.Meta, TFRecordDataSet.Meta):
+        verbose_name = 'Named TFRecord Data Set'
+        verbose_name_plural = 'Named TFRecord Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'named_tfrecord_data_sets'
