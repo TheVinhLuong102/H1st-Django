@@ -291,6 +291,10 @@ class NamedParquetDataSet(_NamedDataSet, ParquetDataSet):
 
         default_related_name = 'named_parquet_data_sets'
 
+    def __str__(self) -> str:
+        return f'"{self.name}" {type(self).__name__} ' \
+               f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
+
 
 class TFRecordDataSet(_FileStoredDataSet):
     class Meta(_FileStoredDataSet.Meta):
@@ -314,3 +318,7 @@ class NamedTFRecordDataSet(_NamedDataSet, TFRecordDataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'named_tfrecord_data_sets'
+
+    def __str__(self) -> str:
+        return f'"{self.name}" {type(self).__name__} ' \
+               f"@ {'Dir' if self.is_dir else 'File'} {self.path}"
