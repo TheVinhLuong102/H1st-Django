@@ -1,6 +1,6 @@
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
-from django.db.models.fields import CharField
+from django.db.models.fields import BooleanField, CharField
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey, OneToOneField
 
@@ -117,6 +117,42 @@ class DataSet(PolymorphicModel, DjangoModelWithUUIDPKAndTimestamps):
     def __str__(self) -> str:
         return f'{type(self).__name__} #{self.uuid}'
 
+
+class NamedDataSet(DataSet):
+    RELATED_NAME = 'named_data_sets'
+    RELATED_QUERY_NAME = 'named_data_set'
+
+    name = \
+        CharField(
+            verbose_name='Data Set Unique Name',
+            help_text='Data Set Unique Name',
+
+            max_length=255,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=True,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta(DataSet.Meta):
+        verbose_name = 'Named Data Set'
+        verbose_name_plural = 'Named Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'named_data_sets'
 
         ordering = 'name',
 
