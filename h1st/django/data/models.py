@@ -165,12 +165,35 @@ class JSONDataSet(DataSet):
         JSONField(
             verbose_name='JSON Data Content',
             help_text='JSON Data Content',
+
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,
+
             null=True,
             blank=True,
+            choices=None,
+            db_column=None,
+            db_index=False,
+            db_tablespace=None,
             default=None,
-            editable=True)
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta(DataSet.Meta):
+        verbose_name = 'JSON Data Set'
+        verbose_name_plural = 'JSON Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'json_data_sets'
+
 
     class Meta(DataSet.Meta):
         verbose_name = 'JSON Data Set'
