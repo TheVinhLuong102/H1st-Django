@@ -1,9 +1,9 @@
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.base import Model
-from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
+from django.db.models.deletion import SET_NULL
 from django.db.models.fields import BooleanField, CharField
 from django.db.models.fields.json import JSONField
-from django.db.models.fields.related import ForeignKey, OneToOneField
+from django.db.models.fields.related import ForeignKey
 
 from polymorphic.models import PolymorphicModel
 
@@ -161,7 +161,7 @@ class _NamedDataSet(Model):
             # validators=None
         )
 
-    class Meta(DataSet.Meta):
+    class Meta:
         abstract = True
 
         ordering = 'name',
