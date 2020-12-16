@@ -4,7 +4,9 @@ from django.contrib.admin.sites import site
 
 from silk.profiling.profiler import silk_profile
 
-from .models import DataSchema, JSONDataSet, ParquetDataSet, TFRecordDataSet
+from .models import \
+    DataSchema, \
+    NamedJSONDataSet, NamedParquetDataSet, NamedTFRecordDataSet
 
 
 @register(DataSchema, site=site)
@@ -20,43 +22,45 @@ class DataSchemaAdmin(ModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(JSONDataSet, site=site)
-class JSONDataSetAdmin(ModelAdmin):
+@register(NamedJSONDataSet, site=site)
+class NamedJSONDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
-    @silk_profile(name=f'{__module__}: {JSONDataSet._meta.verbose_name}')
+    @silk_profile(name=f'{__module__}: {NamedJSONDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
 
     @silk_profile(
-        name=f'{__module__}: {JSONDataSet._meta.verbose_name_plural}')
+        name=f'{__module__}: {NamedJSONDataSet._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(ParquetDataSet, site=site)
-class ParquetDataSetAdmin(ModelAdmin):
+@register(NamedParquetDataSet, site=site)
+class NamedParquetDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
-    @silk_profile(name=f'{__module__}: {ParquetDataSet._meta.verbose_name}')
+    @silk_profile(
+        name=f'{__module__}: {NamedParquetDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
 
     @silk_profile(
-        name=f'{__module__}: {ParquetDataSet._meta.verbose_name_plural}')
+        name=f'{__module__}: {NamedParquetDataSet._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(TFRecordDataSet, site=site)
-class TFRecordDataSetAdmin(ModelAdmin):
+@register(NamedTFRecordDataSet, site=site)
+class NamedTFRecordDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
-    @silk_profile(name=f'{__module__}: {TFRecordDataSet._meta.verbose_name}')
+    @silk_profile(
+        name=f'{__module__}: {NamedTFRecordDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
 
     @silk_profile(
-        name=f'{__module__}: {TFRecordDataSet._meta.verbose_name_plural}')
+        name=f'{__module__}: {NamedTFRecordDataSet._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
