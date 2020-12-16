@@ -6,6 +6,8 @@ db:
   name: ~
 
 aws:
+  key: ~
+  secret: ~
   region: ~
   vpc: ~
   subnets: ~
