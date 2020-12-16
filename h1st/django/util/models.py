@@ -140,7 +140,7 @@ class DjangoModelWithUUIDPK(Model):
 class DjangoModelWithUUIDPKAndTimestamps(
         DjangoModelWithUUIDPK,
         TimeStampedModel):
-    class Meta:
+    class Meta(DjangoModelWithUUIDPK.Meta):
         abstract = True
 
         get_latest_by = 'modified'
