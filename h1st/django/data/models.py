@@ -84,10 +84,29 @@ class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
             verbose_name='Data Set Schema',
             help_text='Data Set Schema',
 
+            # docs.djangoproject.com/en/dev/ref/models/fields/#arguments
             to=DataSchema,
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
             on_delete=SET_NULL,
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.limit_choices_to
+            limit_choices_to={},
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.related_name
             related_name=RELATED_NAME,
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.related_query_name
             related_query_name=RELATED_QUERY_NAME,
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.to_field
+            to_field='pk',
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.db_constraint
+            db_constraint=True,
+
+            # docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.swappable
+            swappable=True,
 
             null=True,
             blank=True,
