@@ -18,6 +18,8 @@ Django-Taggit >= 1.3.0
 
 # Django REST Framework
 DjangoRESTFramework >= 3.12.2
+CoreAPI >= 2.3.3
+    # closely related to Django REST Framework
 DjangoRESTFramework-JSONAPI >= 4.0.0
 
 # Django Filtering
