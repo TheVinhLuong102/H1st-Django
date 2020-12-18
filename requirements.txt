@@ -37,6 +37,9 @@ Django-Extensions >= 3.1.0
 Django-Model-Utils >= 4.1.1
 Django-Storages >= 1.11
 
+# Django CORS Headers
+Django-CORS-Headers >= 3.6.0
+
 
 # ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
 Daphne >= 3.0.1
