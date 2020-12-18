@@ -35,7 +35,7 @@ Django-Silk >= 4.1.0
 # Django Extensions & Utilities
 Django-Extensions >= 3.1.0
 Django-Model-Utils >= 4.1.1
-Django-Storages >= 1.10.1
+Django-Storages >= 1.11
 
 
 # ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
