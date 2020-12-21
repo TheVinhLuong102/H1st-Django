@@ -4,8 +4,10 @@ from django.http.response import JsonResponse
 from inspect import getsource
 import json
 
-from ..trust.models import Decision
+from ..data.models import JSONDataSet
+from ..data.util import load_data_set_pointers_as_json
 from .models import H1stModel
+from ..trust.models import Decision
 
 
 def model_call_on_json_input_data(request, model_uuid, json_input_data):
@@ -13,7 +15,9 @@ def model_call_on_json_input_data(request, model_uuid, json_input_data):
 
     json_input_data = json.loads(json_input_data)
 
-    json_output_data = model(json_input_data)
+    loaded_json_input_data = load_data_set_pointers_as_json(json_input_data)
+
+    json_output_data = model(loaded_json_input_data)
 
     Decision.objects.create(
         input_data=json_input_data,
