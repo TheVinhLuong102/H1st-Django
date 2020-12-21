@@ -209,7 +209,16 @@ class JSONDataSet(DataSet):
         default_related_name = 'json_data_sets'
 
     def load(self):
-        return self.json
+        d = self.json
+
+        # if Pandas DataFrame content with orient='split'
+        if {'columns', 'index', 'data'}.issuperset(d.keys()):
+            return pandas.DataFrame(
+                    columns=d['columns'],
+                    data=d['data'])
+
+        else:
+            return d
 
 
 class NamedJSONDataSet(_NamedDataSet, JSONDataSet):
