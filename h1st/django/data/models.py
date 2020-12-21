@@ -8,6 +8,7 @@ from django.db.models.fields.related import ForeignKey
 from polymorphic.models import PolymorphicModel
 
 from json.decoder import JSONDecoder
+import os
 import pandas
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
@@ -296,6 +297,14 @@ class ParquetDataSet(_FileStoredDataSet):
         default_related_name = 'parquet_data_sets'
 
     def to_pandas(self, engine='pyarrow', columns=None, **kwargs):
+        # set AWS credentials if applicable
+        from django.conf import settings
+        aws_key = settings.get('AWS_ACCESS_KEY_ID')
+        aws_secret = settings.get('AWS_SECRET_ACCESS_KEY')
+        if aws_key and aws_secret:
+            os.environ.setdefault('AWS_ACCESS_KEY_ID', aws_key)
+            os.environ.setdefault('AWS_SECRET_ACCESS_KEY', aws_secret)
+
         return pandas.read_parquet(
                 path=self.path,
                 engine=engine,
