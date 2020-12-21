@@ -304,6 +304,7 @@ class ParquetDataSet(_FileStoredDataSet):
         if aws_key and aws_secret:
             os.environ['AWS_ACCESS_KEY_ID'] = aws_key
             os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret
+            env = os.environ
 
         return pandas.read_parquet(
                 path=self.path,
