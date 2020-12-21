@@ -138,6 +138,9 @@ class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
     def __str__(self) -> str:
         return f'{type(self).__name__} #{self.uuid}'
 
+    def load(self):
+        raise NotImplementedError
+
 
 class _NamedDataSet(Model):
     name = \
@@ -204,6 +207,9 @@ class JSONDataSet(DataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'json_data_sets'
+
+    def load(self):
+        return self.json
 
 
 class NamedJSONDataSet(_NamedDataSet, JSONDataSet):
@@ -286,6 +292,9 @@ class ParquetDataSet(_FileStoredDataSet):
                 engine=engine,
                 columns=columns,
                 **kwargs)
+
+    def load(self):
+        return self.to_pandas()
 
 
 class NamedParquetDataSet(_NamedDataSet, ParquetDataSet):
