@@ -6,6 +6,7 @@ from silk.profiling.profiler import silk_profile
 
 from .models import \
     DataSchema, \
+    JSONDataSet, \
     NamedJSONDataSet, NamedParquetDataSet, NamedTFRecordDataSet
 
 
@@ -18,6 +19,20 @@ class DataSchemaAdmin(ModelAdmin):
         return super().changeform_view(*args, **kwargs)
 
     @silk_profile(name=f'{__module__}: {DataSchema._meta.verbose_name_plural}')
+    def changelist_view(self, *args, **kwargs):
+        return super().changelist_view(*args, **kwargs)
+
+
+@register(JSONDataSet, site=site)
+class JSONDataSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
+    @silk_profile(name=f'{__module__}: {JSONDataSet._meta.verbose_name}')
+    def changeform_view(self, *args, **kwargs):
+        return super().changeform_view(*args, **kwargs)
+
+    @silk_profile(
+        name=f'{__module__}: {JSONDataSet._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
 

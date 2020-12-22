@@ -4,8 +4,9 @@ from django.http.response import JsonResponse
 from inspect import getsource
 import json
 
-from ..data.models import JSONDataSet
-from ..data.util import load_data_set_pointers_as_json
+from ..data.util import \
+    load_data_set_pointers_as_json, \
+    save_pandas_dfs_as_data_set_pointers
 from .models import H1stModel
 from ..trust.models import Decision
 
@@ -19,11 +20,14 @@ def model_call_on_json_input_data(request, model_uuid, json_input_data):
 
     json_output_data = model(loaded_json_input_data)
 
+    saved_json_output_data = \
+        save_pandas_dfs_as_data_set_pointers(json_output_data)
+
     Decision.objects.create(
         input_data=json_input_data,
         model=model,
         model_code={str(model.uuid): getsource(type(model))},
-        output_data=json_output_data)
+        output_data=saved_json_output_data)
 
     return JsonResponse(
             data=json_output_data,
