@@ -30,7 +30,7 @@ def model_call_on_json_input_data(request, model_uuid, json_input_data):
         output_data=saved_json_output_data)
 
     return JsonResponse(
-            data=json_output_data,
+            data=saved_json_output_data,
             encoder=DjangoJSONEncoder,
             safe=True,
             json_dumps_params=None)
