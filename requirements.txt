@@ -10,8 +10,8 @@ Django >= 3.1.4
 Django-Polymorphic >= 3.0.0
 
 # Django Admin Themes
-Django-Jazzmin >= 2.4.3
 Django-Grappelli >= 2.14.3
+Django-Jazzmin >= 2.4.3
 
 # Django-AutoComplete-Light & related
 Django-AutoComplete-Light >= 3.8.1
