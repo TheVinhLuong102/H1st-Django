@@ -173,8 +173,7 @@ class Decision(_ModelWithUUIDPKAndTimestamps):
         default_related_name = 'decisions'
 
     def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.uuid} ' \
-               f'on {self.input_data} by {self.model}: {self.output_data}'
+        return f'{type(self).__name__} #{self.uuid} by {self.model}'
 
 
 class ModelEvalMetricsSet(_ModelWithUUIDPKAndTimestamps):
