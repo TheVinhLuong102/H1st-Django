@@ -4,14 +4,14 @@
 
 
 # DJANGO
-Django >= 3.1.4
+Django >= 3.1.5
 
 # Django Polymorphic Models
 Django-Polymorphic >= 3.0.0
 
 # Django Admin Themes
 Django-Grappelli >= 2.14.3
-Django-Jazzmin >= 2.4.3
+Django-Jazzmin >= 2.4.4
 
 # Django-AutoComplete-Light & related
 Django-AutoComplete-Light >= 3.8.1
@@ -48,8 +48,8 @@ Django-CORS-Headers >= 3.6.0
 
 # ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
 Daphne >= 3.0.1
-Hypercorn >= 0.11.1
-Uvicorn >= 0.13.2
+Hypercorn >= 0.11.2
+Uvicorn >= 0.13.3
 HTTPTools >= 0.1.1
     # required by Uvicorn
 Uvloop >= 0.14.0
@@ -57,16 +57,16 @@ Uvloop >= 0.14.0
 
 
 # DATABASE CONNECTORS/DRIVERS
-MySQLClient >= 2.0.2
+MySQLClient >= 2.0.3
 PsycoPG2-binary >= 2.8.6
 
 
 # OTHER
-GitPython >= 3.1.11
+GitPython >= 3.1.12
 Ruamel.YAML >= 0.16.12
-Tqdm >= 4.54.1
+Tqdm >= 4.56.0
 
 
 # CLOUD
 # AWS Elastic Beanstalk
-AWSEBCLI >= 3.19.2
+AWSEBCLI >= 3.19.3
