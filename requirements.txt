@@ -43,7 +43,7 @@ Django-Model-Utils >= 4.1.1
 Django-Storages >= 1.11
 
 # Django CORS Headers
-Django-CORS-Headers >= 3.6.0
+Django-CORS-Headers >= 3.7.0
 
 
 # ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
