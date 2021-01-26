@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 'db_table': 'H1stData_CSVDataSet',
                 'abstract': False,
                 'default_related_name': 'csv_data_sets',
-                'base_manager_name': 'objects',
+                'base_manager_name': 'objects'
             },
 
             bases=('H1stData.dataset',)
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
                 'ordering': ('name',),
                 'abstract': False,
                 'default_related_name': 'named_csv_data_sets',
-                'base_manager_name': 'objects',
+                'base_manager_name': 'objects'
             },
 
             bases=('H1stData.csvdataset',
