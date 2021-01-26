@@ -47,17 +47,17 @@ Django-CORS-Headers >= 3.7.0
 
 
 # ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
-Daphne >= 3.0.1
+Daphne >= 3.0.1; python_version < '3.9'
 Hypercorn >= 0.11.2
 Uvicorn >= 0.13.3
-HTTPTools >= 0.1.1
+HTTPTools >= 0.1.1; python_version < '3.9'
     # required by Uvicorn
-Uvloop >= 0.14.0
+Uvloop >= 0.14.0; python_version < '3.9'
     # required by Uvicorn
 
 
 # DATABASE CONNECTORS/DRIVERS
-MySQLClient >= 2.0.3
+MySQLClient >= 2.0.3; python_version < '3.9'
 PsycoPG2-binary >= 2.8.6
 
 
