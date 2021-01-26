@@ -68,6 +68,8 @@ def connect_ai_project(
     config = parse_config_file(path=config_file_path)
     _settings.DATABASES['default'] = config['db']
 
+    os.chdir(path=src_dir_path)
+
     # ref: https://code.djangoproject.com/ticket/31056
     os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
