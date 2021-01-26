@@ -1,11 +1,6 @@
-from django.conf import settings
-from django.core.wsgi import get_wsgi_application
-from django.core.asgi import get_asgi_application
-
 import os
 from pathlib import Path
 import shutil
-import sys
 from typing import Optional
 
 from ..config import _H1ST_DJANGO_CONFIG_FILE_NAME, parse_config_file
@@ -98,24 +93,3 @@ def run_command_with_config_file(
     if git_hash:
         os.remove(_GIT_HASH_FILE_NAME)
         assert not os.path.exists(path=_GIT_HASH_FILE_NAME)
-
-
-def connect_ai_project(
-        src_dir_path: str,
-        config_file_path: str,
-        asgi=False):
-    sys.path.append(src_dir_path)
-    import settings as _settings
-
-    config = parse_config_file(path=config_file_path)
-    _settings.DATABASES['default'] = config['db']
-
-    settings.configure(
-        **{SETTING_KEY: setting_value
-           for SETTING_KEY, setting_value in _settings.__dict__.items()
-           if SETTING_KEY.isupper()})
-
-    if asgi:
-        get_asgi_application()
-    else:
-        get_wsgi_application()
