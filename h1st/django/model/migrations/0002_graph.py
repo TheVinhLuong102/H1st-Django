@@ -9,21 +9,46 @@ import uuid
 
 
 class Migration(migrations.Migration):
+    dependencies = \
+        ('contenttypes', '0002_remove_content_type_name'), \
+        ('H1stModel', '0001_initial')
 
-    dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
-        ('H1stModel', '0001_initial'),
-    ]
-
-    operations = [
+    operations = \
         migrations.CreateModel(
             name='Graph',
+
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('uuid', models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, help_text='UUID', primary_key=True, serialize=False, unique=True, verbose_name='UUID')),
-                ('polymorphic_ctype', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_h1stmodel.graph_set+', to='contenttypes.contenttype')),
+                ('uuid',
+                 models.UUIDField(
+                    db_index=True,
+                    default=uuid.uuid4,
+                    editable=False,
+                    help_text='UUID',
+                    primary_key=True,
+                    serialize=False,
+                    unique=True,
+                    verbose_name='UUID')),
+
+                ('created',
+                 model_utils.fields.AutoCreatedField(
+                    default=django.utils.timezone.now,
+                    editable=False,
+                    verbose_name='created')),
+                ('modified',
+                 model_utils.fields.AutoLastModifiedField(
+                    default=django.utils.timezone.now,
+                    editable=False,
+                    verbose_name='modified')),
+
+                ('polymorphic_ctype',
+                 models.ForeignKey(
+                    editable=False,
+                    null=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='polymorphic_h1stmodel.graph_set+',
+                    to='contenttypes.contenttype'))
             ],
+
             options={
                 'verbose_name': 'H1st Graph',
                 'verbose_name_plural': 'H1st Graphs',
@@ -41,6 +66,7 @@ class Migration(migrations.Migration):
                 'base_manager_name': 'objects',
                 'default_manager_name': 'objects',
             },
-            bases=(models.Model, h1st.core.graph.Graph),
+
+            bases=(models.Model,
+                   h1st.core.graph.Graph)
         ),
-    ]
