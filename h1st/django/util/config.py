@@ -58,7 +58,7 @@ def parse_config_file(path=_H1ST_DJANGO_CONFIG_FILE_NAME):
                             f'{_H1ST_DJANGO_CONFIG_FILE_NAME}.template'))
 
 
-def config_ai_project(
+def connect_ai_project(
         src_dir_path: str,
         config_file_path: str,
         asgi=False):
