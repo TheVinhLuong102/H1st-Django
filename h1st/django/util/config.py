@@ -78,6 +78,7 @@ def connect_ai_project(
            for SETTING_KEY, setting_value in _settings.__dict__.items()
            if SETTING_KEY.isupper()})
 
-    return get_asgi_application() \
-        if asgi \
-      else get_wsgi_application()
+    if asgi:
+        get_asgi_application()
+    else:
+        get_wsgi_application()
