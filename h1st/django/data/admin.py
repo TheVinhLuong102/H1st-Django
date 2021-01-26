@@ -6,8 +6,8 @@ from silk.profiling.profiler import silk_profile
 
 from .models import \
     DataSchema, \
-    JSONDataSet, \
-    NamedJSONDataSet, NamedParquetDataSet, NamedTFRecordDataSet
+    JSONDataSet, NamedJSONDataSet, \
+    NamedCSVDataSet, NamedParquetDataSet, NamedTFRecordDataSet
 
 
 @register(DataSchema, site=site)
@@ -47,6 +47,21 @@ class NamedJSONDataSetAdmin(ModelAdmin):
 
     @silk_profile(
         name=f'{__module__}: {NamedJSONDataSet._meta.verbose_name_plural}')
+    def changelist_view(self, *args, **kwargs):
+        return super().changelist_view(*args, **kwargs)
+
+
+@register(NamedCSVDataSet, site=site)
+class NamedCSVDataSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
+    @silk_profile(
+        name=f'{__module__}: {NamedCSVDataSet._meta.verbose_name}')
+    def changeform_view(self, *args, **kwargs):
+        return super().changeform_view(*args, **kwargs)
+
+    @silk_profile(
+        name=f'{__module__}: {NamedCSVDataSet._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
 
