@@ -1,6 +1,5 @@
 # HUMAN-FIRST AI
-# H1st >= 2020.12
-    # awaiting new H1st release
+H1st >= 2020.12
 
 
 # DJANGO
