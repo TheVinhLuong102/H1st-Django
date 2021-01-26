@@ -1,6 +1,11 @@
+from django.conf import settings
+from django.core.wsgi import get_wsgi_application
+from django.core.asgi import get_asgi_application
+
 import os
 from pathlib import Path
 from ruamel import yaml
+import sys
 
 
 _H1ST_DJANGO_CONFIG_FILE_NAME = '.config.yml'
@@ -51,3 +56,24 @@ def parse_config_file(path=_H1ST_DJANGO_CONFIG_FILE_NAME):
                             'cli' /
                             '_standard_files' /
                             f'{_H1ST_DJANGO_CONFIG_FILE_NAME}.template'))
+
+
+def config_ai_project(
+        src_dir_path: str,
+        config_file_path: str,
+        asgi=False):
+    sys.path.append(src_dir_path)
+    import settings as _settings
+
+    config = parse_config_file(path=config_file_path)
+    _settings.DATABASES['default'] = config['db']
+
+    settings.configure(
+        **{SETTING_KEY: setting_value
+           for SETTING_KEY, setting_value in _settings.__dict__.items()
+           if SETTING_KEY.isupper()})
+
+    if asgi:
+        get_asgi_application()
+    else:
+        get_wsgi_application()
