@@ -31,7 +31,7 @@ class Model(PolymorphicModel, _ModelWithUUIDPKAndTimestamps, _CoreH1stModel):
 H1stModel = Model
 
 
-class Graph(PolymorphicModel, _ModelWithUUIDPKAndTimestamps, _CoreH1stGraph):
+class Graph(Model, _CoreH1stGraph):
     class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
         verbose_name = 'H1st Graph'
         verbose_name_plural = 'H1st Graphs'
