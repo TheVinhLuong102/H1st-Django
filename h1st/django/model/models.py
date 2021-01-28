@@ -24,7 +24,7 @@ class Model(PolymorphicModel, _ModelWithUUIDPKAndTimestamps, _CoreH1stModel):
         return f'{type(self).__name__} #{self.uuid}'
 
     def __call__(self, *args, **kwargs):
-        raise NotImplementedError
+        return self.predict(*args, **kwargs)
 
 
 # alias
@@ -45,9 +45,6 @@ class Workflow(Model, _CoreH1stWorkflow):
 
     def __str__(self) -> str:
         return f'{type(self).__name__} #{self.uuid}'
-
-    def __call__(self, *args, **kwargs):
-        return self.predict(*args, **kwargs)
 
     def predict(self, *args, **kwargs):
         return _CoreH1stWorkflow.predict(self, *args, **kwargs)
