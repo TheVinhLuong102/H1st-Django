@@ -44,6 +44,6 @@ class Migration(migrations.Migration):
                 'default_manager_name': 'objects'
             },
 
-            bases=('H1stModel.model',
-                   h1st.core.graph.Graph)
+            bases=(h1st.core.graph.Graph,
+                   'H1stModel.model')
         ),
