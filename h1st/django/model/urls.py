@@ -21,6 +21,6 @@ urlpatterns = [
     path(route='<str:model_uuid>/<str:json_input_data>/',
          view=model_call_on_json_input_data),
 
-    path(route='model-call',
+    path(route='model-call/',
          view=ModelCallAPIView.as_view())
 ]

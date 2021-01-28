@@ -82,8 +82,5 @@ class ModelCallAPIView(APIView):
         FileUploadParser, \
         JSONParser
 
-    def get(self, request, *args, **kwargs):
-        return Response('hello')
-
     def post(self, request, *args, **kwargs):
         return Response('hello')
