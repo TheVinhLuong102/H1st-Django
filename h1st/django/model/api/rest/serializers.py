@@ -1,20 +1,11 @@
-from rest_framework.fields import Field
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from ...models import Model
 
 
-class ModelDescriptionField(Field):
-    def to_representation(self, value):
-        return str(value)
-
-
 class H1stModelSerializer(ModelSerializer):
     description = \
-        ModelDescriptionField(
-            read_only=True,
-            write_only=False,
-            required=False)
+        SerializerMethodField(method_name='get_description')
 
     class Meta:
         model = Model
@@ -24,3 +15,6 @@ class H1stModelSerializer(ModelSerializer):
             'uuid', \
             'created', \
             'modified'
+
+    def get_description(self, obj):
+        return str(obj)
