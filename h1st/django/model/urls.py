@@ -2,7 +2,7 @@ from django.urls.conf import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from .api.rest.views import H1stModelViewSet
+from .api.rest.views import H1stModelViewSet, ModelCallAPIView
 from .views import model_call_on_json_input_data
 
 
@@ -19,5 +19,8 @@ urlpatterns = [
          include(CORE_REST_API_ROUTER.urls)),
 
     path(route='<str:model_uuid>/<str:json_input_data>/',
-         view=model_call_on_json_input_data)
+         view=model_call_on_json_input_data),
+
+    path(route='model-call',
+         view=ModelCallAPIView.as_view())
 ]

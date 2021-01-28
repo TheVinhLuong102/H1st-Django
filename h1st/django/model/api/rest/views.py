@@ -6,6 +6,7 @@ from rest_framework.authentication import \
 from rest_framework.parsers import FileUploadParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import CoreJSONRenderer, JSONRenderer
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from rest_framework.filters import OrderingFilter
@@ -65,3 +66,20 @@ class H1stModelViewSet(ModelViewSet):
     @silk_profile(name=f'{__module__}: {Model._meta.verbose_name}')
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
+
+
+class ModelCallAPIView(APIView):
+    authentication_classes = \
+        BasicAuthentication, \
+        RemoteUserAuthentication, \
+        SessionAuthentication, \
+        TokenAuthentication
+
+    permission_classes = IsAuthenticated,
+
+    parser_classes = \
+        FileUploadParser, \
+        JSONParser
+
+    def post(self, request, *args, **kwargs):
+        return 'hello'
