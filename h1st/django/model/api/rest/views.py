@@ -86,36 +86,39 @@ class ModelCallAPIView(APIView):
         return Response(dict(
 
                 request_parsing=dict(
-                    data=str(request.data),
+                #    data=str(request.data),
                 #     DATA=str(request.DATA),
                 #     FILES=str(request.FILES),
                 #     POST=str(request.POST),
 
-                    query_params=str(request.query_params),
-                    QUERY_PARAMS=str(request.QUERY_PARAMS),
+                #    query_params=str(request.query_params),
+                #    QUERY_PARAMS=str(request.QUERY_PARAMS),
 
                 #     parsers=str(request.parsers)
                 ),
 
-                # content_negotiation=dict(
+                content_negotiation=dict(
                 #     accepted_renderer=str(request.accepted_renderer),
-                #     accepted_media_type=str(request.accepted_media_type)),
+                #     accepted_media_type=str(request.accepted_media_type)
+                ),
 
-                # authentication=dict(
+                authentication=dict(
                 #     user=str(request.user),
                 #     auth=str(request.auth),
-                #     authenticators=str(request.authenticators)),
+                #     authenticators=str(request.authenticators)
+                ),
 
-                # browser_enhancements=dict(
+                browser_enhancements=dict(
                 #     method=str(request.method),
                 #     content_type=str(request.content_type),
-                #     stream=str(request.stream)),
+                #     stream=str(request.stream)
+                ),
 
-                # other=dict(
+                other=dict(
                 #     force_plaintext_errors=str(request.force_plaintext_errors),
                 #     negotiator=str(request.negotiator),
                 #     parser_context=str(request.parser_context),
                 #     succ_authenticator=str(request.successful_authenticator),
                 #     version=str(request.version),
-                #     versioning_scheme=str(request.versioning_scheme))
-                ))
+                #     versioning_scheme=str(request.versioning_scheme)
+                )))
