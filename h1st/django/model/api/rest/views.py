@@ -83,4 +83,4 @@ class ModelCallAPIView(APIView):
         JSONParser
 
     def post(self, request, *args, **kwargs):
-        return Response('hello')
+        return Response(f'Content Type: {request.content_type}')
