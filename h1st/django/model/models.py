@@ -31,7 +31,7 @@ class Model(PolymorphicModel, _ModelWithUUIDPKAndTimestamps, _CoreH1stModel):
 H1stModel = Model
 
 
-class Workflow(_CoreH1stWorkflow, Model):   # order of inheritance is important
+class Workflow(Model, _CoreH1stWorkflow):
     class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
         verbose_name = 'H1st Workflow'
         verbose_name_plural = 'H1st Workflows'
