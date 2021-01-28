@@ -6,6 +6,7 @@ from rest_framework.authentication import \
 from rest_framework.parsers import FileUploadParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import CoreJSONRenderer, JSONRenderer
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -81,5 +82,8 @@ class ModelCallAPIView(APIView):
         FileUploadParser, \
         JSONParser
 
+    def get(self, request, *args, **kwargs):
+        return Response('hello')
+
     def post(self, request, *args, **kwargs):
-        return 'hello'
+        return Response('hello')
