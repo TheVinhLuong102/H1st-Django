@@ -9,13 +9,13 @@ from .views import model_call_on_json_input_data
 CORE_REST_API_ROUTER = DefaultRouter(trailing_slash=False)
 
 CORE_REST_API_ROUTER.register(
-    prefix='models',
+    prefix='',
     viewset=H1stModelViewSet,
     basename=None)
 
 
 urlpatterns = [
-    path('api/rest/',
+    path('',
          include(CORE_REST_API_ROUTER.urls)),
 
     path(route='<str:model_uuid>/<str:json_input_data>/',
