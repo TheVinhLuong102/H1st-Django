@@ -3,6 +3,7 @@ from rest_framework.authentication import \
     RemoteUserAuthentication, \
     SessionAuthentication, \
     TokenAuthentication
+from rest_framework.parsers import FileUploadParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import CoreJSONRenderer, JSONRenderer
 from rest_framework.viewsets import ModelViewSet
@@ -46,6 +47,12 @@ class H1stModelViewSet(ModelViewSet):
         'modified'
 
     ordering = '-modified'
+
+    pagination_class = None
+
+    parser_classes = \
+        FileUploadParser, \
+        JSONParser
 
     renderer_classes = \
         CoreJSONRenderer, \
