@@ -15,7 +15,7 @@ CORE_REST_API_ROUTER.register(
 
 
 urlpatterns = [
-    path('api/rest/h1st/models',
+    path('api/rest/',
          include(CORE_REST_API_ROUTER.urls)),
 
     path(route='<str:model_uuid>/<str:json_input_data>/',
