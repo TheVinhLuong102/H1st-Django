@@ -58,9 +58,6 @@ class H1stModelViewSet(ModelViewSet):
         CoreJSONRenderer, \
         JSONRenderer
 
-    def get_permissions(self):
-        return (IsAuthenticated(),)
-
     @silk_profile(name=f'{__module__}: {Model._meta.verbose_name_plural}')
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
