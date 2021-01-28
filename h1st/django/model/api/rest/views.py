@@ -84,6 +84,8 @@ class ModelCallAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         return Response(dict(
-            content_type=request.content_type,
-            request_keys=dir(request)
-        ))
+                content_type=request.content_type,
+                request_keys={attr: getattr(request, attr)
+                              for attr in dir(request)
+                              if not attr.startswith('_')}
+                ))
