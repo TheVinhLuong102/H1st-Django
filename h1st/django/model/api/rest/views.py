@@ -4,7 +4,7 @@ from rest_framework.authentication import \
     SessionAuthentication, \
     TokenAuthentication
 from rest_framework.parsers import FileUploadParser, JSONParser
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import CoreJSONRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -87,29 +87,3 @@ class ModelCallAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         return Response('hello')
-
-
-from django.contrib.auth.models import User
-
-
-class ListUsers(APIView):
-    """
-    View to list all users in the system.
-
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
-    authentication_classes = \
-        BasicAuthentication, \
-        RemoteUserAuthentication, \
-        SessionAuthentication, \
-        TokenAuthentication
-
-    permission_classes = [IsAdminUser]
-
-    def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
