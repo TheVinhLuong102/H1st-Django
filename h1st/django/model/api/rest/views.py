@@ -109,9 +109,9 @@ class ModelCallAPIView(APIView):
                 ),
 
                 browser_enhancements=dict(
-                #     method=str(request.method),
-                #     content_type=str(request.content_type),
-                #     stream=str(request.stream)
+                    method=request.method,
+                    content_type=request.content_type,
+                    stream=str(request.stream)
                 ),
 
                 other=dict(
