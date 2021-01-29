@@ -93,11 +93,13 @@ class ModelCallAPIView(APIView):
 
                 request_parsing=dict(
                     data=str(request.data),
+                    data_dir=request.data.keys(),
                     # DATA=str(request.DATA),
-                    # FILES=str(request.FILES),
-                    # POST=str(request.POST),
 
-                    query_params=str(request.query_params),
+                    FILES=request.FILES,
+                    POST=request.POST,
+
+                    query_params=request.query_params,
                     # QUERY_PARAMS=str(request.QUERY_PARAMS),
 
                     # parsers=str(request.parsers)
@@ -110,7 +112,7 @@ class ModelCallAPIView(APIView):
 
                 authentication=dict(
                     user=str(request.user),
-                    # auth=str(request.auth),
+                    auth=request.auth,
                     # authenticators=str(request.authenticators)
                 ),
 
