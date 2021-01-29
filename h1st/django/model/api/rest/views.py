@@ -94,19 +94,12 @@ class ModelExecAPIView(APIView):
         except:
             return Response("'UUID' Key Not Found in Request Body")
 
-        try:
-            assert isinstance(model_uuid, list) and (len(model_uuid) == 1)
-        except:
-            return Response(f"{model_uuid} Not Valid")
-
-        model_uuid = model_uuid[0]
-
-        try:
-            model = Model.objects.get(uuid=model_uuid)
-        except:
-            return Response(f"Model with UUID #{model_uuid} Not Found")
-
         if request.content_type == 'application/json':
+            try:
+                model = Model.objects.get(uuid=model_uuid)
+            except:
+                return Response(f"Model with UUID #{model_uuid} Not Found")
+
             json_input_data = request.data
 
             loaded_json_input_data = \
@@ -132,6 +125,19 @@ class ModelExecAPIView(APIView):
                     content_type=None)
 
         elif request.content_type.startswith('multipart/form-data'):
+            try:
+                assert isinstance(model_uuid, list) and (len(model_uuid) == 1)
+            except:
+                return Response(f"{model_uuid} Not Valid")
+
+            model_uuid = model_uuid[0]
+
+            try:
+                model = Model.objects.get(uuid=model_uuid)
+            except:
+                return Response(f"Model with UUID #{model_uuid} Not Found")
+
+
             data = {}
 
             for k, v in request.data.items():
