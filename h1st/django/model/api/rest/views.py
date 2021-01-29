@@ -103,15 +103,15 @@ class ModelCallAPIView(APIView):
                 ),
 
                 authentication=dict(
-                #     user=str(request.user),
-                #     auth=str(request.auth),
-                #     authenticators=str(request.authenticators)
+                    user=str(request.user),
+                    # auth=str(request.auth),
+                    # authenticators=str(request.authenticators)
                 ),
 
                 browser_enhancements=dict(
                     method=request.method,
                     content_type=request.content_type,
-                    stream=str(request.stream)
+                    # stream=str(request.stream)
                 ),
 
                 other=dict(
