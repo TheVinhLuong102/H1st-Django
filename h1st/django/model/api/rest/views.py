@@ -3,11 +3,7 @@ from rest_framework.authentication import \
     RemoteUserAuthentication, \
     SessionAuthentication, \
     TokenAuthentication
-from rest_framework.parsers import \
-    FileUploadParser, \
-    FormParser, \
-    JSONParser, \
-    MultiPartParser
+from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import CoreJSONRenderer, JSONRenderer
 from rest_framework.response import Response
@@ -56,9 +52,7 @@ class H1stModelViewSet(ModelViewSet):
 
     pagination_class = None
 
-    parser_classes = \
-        FileUploadParser, \
-        JSONParser
+    parser_classes = JSONParser,
 
     renderer_classes = \
         CoreJSONRenderer, \
@@ -83,8 +77,6 @@ class ModelCallAPIView(APIView):
     permission_classes = IsAuthenticated,
 
     parser_classes = \
-        FileUploadParser, \
-        FormParser, \
         JSONParser, \
         MultiPartParser
 
@@ -93,7 +85,6 @@ class ModelCallAPIView(APIView):
 
                 request_parsing=dict(
                     data=str(request.data),
-                    data_dir=request.data.keys(),
                     # DATA=str(request.DATA),
 
                     FILES=request.FILES,
@@ -120,13 +111,4 @@ class ModelCallAPIView(APIView):
                     method=request.method,
                     content_type=request.content_type,
                     # stream=str(request.stream)
-                ),
-
-                other=dict(
-                #     force_plaintext_errors=str(request.force_plaintext_errors),
-                #     negotiator=str(request.negotiator),
-                #     parser_context=str(request.parser_context),
-                #     succ_authenticator=str(request.successful_authenticator),
-                #     version=str(request.version),
-                #     versioning_scheme=str(request.versioning_scheme)
                 )))
