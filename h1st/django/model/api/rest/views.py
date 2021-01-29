@@ -87,8 +87,8 @@ class ModelCallAPIView(APIView):
                     data=str(request.data),
                     # DATA=str(request.DATA),
 
-                    FILES=request.FILES,
-                    POST=request.POST,
+                    # FILES=request.FILES,
+                    # POST=request.POST,
 
                     query_params=request.query_params,
                     # QUERY_PARAMS=str(request.QUERY_PARAMS),
