@@ -91,15 +91,15 @@ class ModelCallAPIView(APIView):
                 #     FILES=str(request.FILES),
                 #     POST=str(request.POST),
 
-                #    query_params=str(request.query_params),
-                #    QUERY_PARAMS=str(request.QUERY_PARAMS),
+                    query_params=str(request.query_params),
+                    QUERY_PARAMS=str(request.QUERY_PARAMS),
 
-                #     parsers=str(request.parsers)
+                    # parsers=str(request.parsers)
                 ),
 
                 content_negotiation=dict(
-                #     accepted_renderer=str(request.accepted_renderer),
-                #     accepted_media_type=str(request.accepted_media_type)
+                    accepted_renderer=str(request.accepted_renderer),
+                    accepted_media_type=request.accepted_media_type
                 ),
 
                 authentication=dict(
