@@ -75,7 +75,7 @@ class H1stModelViewSet(ModelViewSet):
         return super().retrieve(*args, **kwargs)
 
 
-class ModelCallAPIView(APIView):
+class ModelExecAPIView(APIView):
     authentication_classes = \
         BasicAuthentication, \
         RemoteUserAuthentication, \

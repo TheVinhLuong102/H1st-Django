@@ -11,7 +11,7 @@ from .models import H1stModel
 from ..trust.models import Decision
 
 
-def model_call_on_json_input_data(request, model_uuid, json_input_data):
+def model_exec_on_json_input_data(request, model_uuid, json_input_data):
     model = H1stModel.objects.get(uuid=model_uuid)
 
     json_input_data = json.loads(json_input_data)
