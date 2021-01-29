@@ -1,4 +1,6 @@
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.uploadedfile import \
+    InMemoryUploadedFile, \
+    TemporaryUploadedFile
 
 from rest_framework.authentication import \
     BasicAuthentication, \
@@ -140,13 +142,19 @@ class ModelExecAPIView(APIView):
             data = {}
 
             for k, v in request.data.items():
-                if isinstance(v, InMemoryUploadedFile):
-                    data[k] = dict(name=v.name, content_type=v.content_type)
+                if isinstance(v, (InMemoryUploadedFile,
+                                  TemporaryUploadedFile)):
+                    data[k] = dict(name=v.name,
+                                   cls=type(v).__name__,
+                                   content_type=v.content_type)
 
                 elif isinstance(v, (list, tuple)) and \
-                        all(isinstance(i, InMemoryUploadedFile)
+                        all(isinstance(i, (InMemoryUploadedFile,
+                                           TemporaryUploadedFile))
                             for i in v):
-                    data[k] = [dict(name=i.name, content_type=i.content_type)
+                    data[k] = [dict(name=i.name,
+                                    cls=type(i).__name__,
+                                    content_type=i.content_type)
                                for i in v]
 
                 else:
