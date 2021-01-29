@@ -24,11 +24,11 @@ from inspect import getsource
 from ....data.util import \
     load_data_set_pointers_as_json, \
     save_pandas_dfs_as_data_set_pointers
-from ....trust.models import Decision
 from ...models import Model
 from .filters import ModelFilter
 from .queries import MODEL_REST_API_QUERY_SET
 from .serializers import H1stModelSerializer
+from ....trust.models import Decision
 
 
 class H1stModelViewSet(ModelViewSet):
@@ -137,7 +137,6 @@ class ModelExecAPIView(APIView):
             except:
                 return Response(f"Model with UUID #{model_uuid} Not Found")
 
-
             data = {}
 
             for k, v in request.data.items():
@@ -153,37 +152,7 @@ class ModelExecAPIView(APIView):
                 else:
                     data[k] = v
 
-            return Response(dict(
-
-                    request_parsing=dict(
-                        data=data,
-                        # DATA=str(request.DATA),
-
-                        # FILES=request.FILES,
-                        # POST=request.POST,
-
-                        query_params=request.query_params,
-                        # QUERY_PARAMS=str(request.QUERY_PARAMS),
-
-                        # parsers=str(request.parsers)
-                    ),
-
-                    content_negotiation=dict(
-                        accepted_renderer=str(request.accepted_renderer),
-                        accepted_media_type=request.accepted_media_type
-                    ),
-
-                    authentication=dict(
-                        user=str(request.user),
-                        auth=request.auth,
-                        # authenticators=str(request.authenticators)
-                    ),
-
-                    browser_enhancements=dict(
-                        method=request.method,
-                        content_type=request.content_type,
-                        # stream=str(request.stream)
-                    )))
+            return Response(data)
 
         else:
             return Response('Content Type must be '
