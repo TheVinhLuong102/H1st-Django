@@ -86,10 +86,10 @@ class ModelCallAPIView(APIView):
         return Response(dict(
 
                 request_parsing=dict(
-                #    data=str(request.data),
-                #     DATA=str(request.DATA),
-                #     FILES=str(request.FILES),
-                #     POST=str(request.POST),
+                    data=str(request.data),
+                    # DATA=str(request.DATA),
+                    # FILES=str(request.FILES),
+                    # POST=str(request.POST),
 
                     query_params=str(request.query_params),
                     # QUERY_PARAMS=str(request.QUERY_PARAMS),
@@ -98,7 +98,7 @@ class ModelCallAPIView(APIView):
                 ),
 
                 content_negotiation=dict(
-                    # accepted_renderer=str(request.accepted_renderer),
+                    accepted_renderer=str(request.accepted_renderer),
                     accepted_media_type=request.accepted_media_type
                 ),
 
