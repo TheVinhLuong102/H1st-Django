@@ -23,9 +23,6 @@ class Model(PolymorphicModel, _ModelWithUUIDPKAndTimestamps, _CoreH1stModel):
     def __str__(self) -> str:
         return f'{type(self).__name__} #{self.uuid}'
 
-    def __call__(self, *args, **kwargs):
-        return self.predict(*args, **kwargs)
-
 
 # alias
 H1stModel = Model

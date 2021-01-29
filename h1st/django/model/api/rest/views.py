@@ -108,7 +108,7 @@ class ModelExecAPIView(APIView):
             loaded_json_input_data = \
                 load_data_set_pointers_as_json(json_input_data)
 
-            json_output_data = model(loaded_json_input_data)
+            json_output_data = model.predict(loaded_json_input_data)
 
             saved_json_output_data = \
                 save_pandas_dfs_as_data_set_pointers(json_output_data)
@@ -154,7 +154,7 @@ class ModelExecAPIView(APIView):
                 else:
                     data[k] = v
 
-            json_output_data = model(data)
+            json_output_data = model.predict(data)
 
             saved_json_output_data = \
                 save_pandas_dfs_as_data_set_pointers(json_output_data)
