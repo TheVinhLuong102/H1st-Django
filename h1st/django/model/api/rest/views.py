@@ -147,7 +147,7 @@ class ModelExecAPIView(APIView):
                     data[k] = dict(name=v.name,
                                    cls=type(v).__name__,
                                    content_type=v.content_type,
-                                   size=v.size)
+                                   size=v.size / 1e6)
 
                 elif isinstance(v, (list, tuple)) and \
                         all(isinstance(i, (InMemoryUploadedFile,
@@ -156,7 +156,7 @@ class ModelExecAPIView(APIView):
                     data[k] = [dict(name=i.name,
                                     cls=type(i).__name__,
                                     content_type=i.content_type,
-                                    size=i.size)
+                                    size=i.size / 1e6)
                                for i in v]
 
                 else:
