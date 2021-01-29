@@ -19,6 +19,12 @@ from rest_framework_filters.backends import \
 
 from silk.profiling.profiler import silk_profile
 
+from inspect import getsource
+
+from ....data.util import \
+    load_data_set_pointers_as_json, \
+    save_pandas_dfs_as_data_set_pointers
+from ....trust.models import Decision
 from ...models import Model
 from .filters import ModelFilter
 from .queries import MODEL_REST_API_QUERY_SET
@@ -92,7 +98,7 @@ class ModelCallAPIView(APIView):
             assert isinstance(model_uuid, list) and (len(model_uuid) == 1)
         except:
             return Response(f"{model_uuid} Not Valid")
-        
+
         model_uuid = model_uuid[0]
 
         try:
@@ -101,7 +107,29 @@ class ModelCallAPIView(APIView):
             return Response(f"Model with UUID #{model_uuid} Not Found")
 
         if request.content_type == 'application/json':
-            pass
+            json_input_data = request.data
+
+            loaded_json_input_data = \
+                load_data_set_pointers_as_json(json_input_data)
+
+            json_output_data = model(loaded_json_input_data)
+
+            saved_json_output_data = \
+                save_pandas_dfs_as_data_set_pointers(json_output_data)
+
+            Decision.objects.create(
+                input_data=json_input_data,
+                model=model,
+                model_code={str(model.uuid): getsource(type(model))},
+                output_data=saved_json_output_data)
+
+            return Response(
+                    data=saved_json_output_data,
+                    status=None,
+                    template_name=None,
+                    headers=None,
+                    exception=False,
+                    content_type=None)
 
         elif request.content_type.startswith('multipart/form-data'):
             data = {}
