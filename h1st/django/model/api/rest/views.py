@@ -22,6 +22,7 @@ from rest_framework_filters.backends import \
 from silk.profiling.profiler import silk_profile
 
 from inspect import getsource
+from tempfile import mkstemp
 
 from ....data.util import \
     load_data_set_pointers_as_json, \
@@ -142,27 +143,35 @@ class ModelExecAPIView(APIView):
             data = {}
 
             for k, v in request.data.items():
-                if isinstance(v, (InMemoryUploadedFile,
-                                  TemporaryUploadedFile)):
-                    data[k] = dict(name=v.name,
-                                   cls=type(v).__name__,
-                                   content_type=v.content_type,
-                                   size=v.size / 1e6)
+                if isinstance(v, InMemoryUploadedFile):
+                    tmp_file_handle, tmp_file_path = mkstemp()
+                    tmp_file_handle.write(v.read())
+                    data[k] = tmp_file_path
 
-                elif isinstance(v, (list, tuple)) and \
-                        all(isinstance(i, (InMemoryUploadedFile,
-                                           TemporaryUploadedFile))
-                            for i in v):
-                    data[k] = [dict(name=i.name,
-                                    cls=type(i).__name__,
-                                    content_type=i.content_type,
-                                    size=i.size / 1e6)
-                               for i in v]
+                elif isinstance(v, TemporaryUploadedFile):
+                    data[k] = v.temporary_file_path()
 
                 else:
                     data[k] = v
 
-            return Response(data)
+            json_output_data = model(data)
+
+            saved_json_output_data = \
+                save_pandas_dfs_as_data_set_pointers(json_output_data)
+
+            Decision.objects.create(
+                input_data=data,
+                model=model,
+                model_code={str(model.uuid): getsource(type(model))},
+                output_data=saved_json_output_data)
+
+            return Response(
+                    data=saved_json_output_data,
+                    status=None,
+                    template_name=None,
+                    headers=None,
+                    exception=False,
+                    content_type=None)
 
         else:
             return Response('Content Type must be '
