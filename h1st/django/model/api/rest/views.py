@@ -1,3 +1,5 @@
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 from rest_framework.authentication import \
     BasicAuthentication, \
     RemoteUserAuthentication, \
@@ -81,34 +83,75 @@ class ModelCallAPIView(APIView):
         MultiPartParser
 
     def post(self, request, *args, **kwargs):
-        return Response(dict(
+        try:
+            model_uuid = request.data.pop('UUID')
+        except:
+            return Response("'UUID' Key Not Found in Request Body")
 
-                request_parsing=dict(
-                    data=str(request.data),
-                    # DATA=str(request.DATA),
+        try:
+            assert isinstance(model_uuid, list) and (len(model_uuid) == 1)
+        except:
+            return Response(f"{model_uuid} Not Valid")
+        
+        model_uuid = model_uuid[0]
 
-                    # FILES=request.FILES,
-                    # POST=request.POST,
+        try:
+            model = Model.objects.get(uuid=model_uuid)
+        except:
+            return Response(f"Model with UUID #{model_uuid} Not Found")
 
-                    query_params=request.query_params,
-                    # QUERY_PARAMS=str(request.QUERY_PARAMS),
+        if request.content_type == 'application/json':
+            pass
 
-                    # parsers=str(request.parsers)
-                ),
+        elif request.content_type.startswith('multipart/form-data'):
+            data = {}
 
-                content_negotiation=dict(
-                    accepted_renderer=str(request.accepted_renderer),
-                    accepted_media_type=request.accepted_media_type
-                ),
+            for k, v in request.data.items():
+                if isinstance(v, InMemoryUploadedFile):
+                    data[k] = dict(name=v.name, content_type=v.content_type)
 
-                authentication=dict(
-                    user=str(request.user),
-                    auth=request.auth,
-                    # authenticators=str(request.authenticators)
-                ),
+                elif isinstance(v, (list, tuple)) and \
+                        all(isinstance(i, InMemoryUploadedFile)
+                            for i in v):
+                    data[k] = [dict(name=i.name, content_type=i.content_type)
+                               for i in v]
 
-                browser_enhancements=dict(
-                    method=request.method,
-                    content_type=request.content_type,
-                    # stream=str(request.stream)
-                )))
+                else:
+                    data[k] = v
+
+            return Response(dict(
+
+                    request_parsing=dict(
+                        data=data,
+                        # DATA=str(request.DATA),
+
+                        # FILES=request.FILES,
+                        # POST=request.POST,
+
+                        query_params=request.query_params,
+                        # QUERY_PARAMS=str(request.QUERY_PARAMS),
+
+                        # parsers=str(request.parsers)
+                    ),
+
+                    content_negotiation=dict(
+                        accepted_renderer=str(request.accepted_renderer),
+                        accepted_media_type=request.accepted_media_type
+                    ),
+
+                    authentication=dict(
+                        user=str(request.user),
+                        auth=request.auth,
+                        # authenticators=str(request.authenticators)
+                    ),
+
+                    browser_enhancements=dict(
+                        method=request.method,
+                        content_type=request.content_type,
+                        # stream=str(request.stream)
+                    )))
+
+        else:
+            return Response('Content Type must be '
+                            "either 'application/json' "
+                            "or 'multipart/form-data'")
