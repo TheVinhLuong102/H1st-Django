@@ -1,4 +1,5 @@
 import json
+from numpy import ndarray
 from pandas import DataFrame
 from uuid import UUID
 
@@ -29,12 +30,17 @@ def load_data_set_pointers_as_json(data: dict) -> dict:
     return loaded_data
 
 
-def save_pandas_dfs_as_data_set_pointers(data: dict) -> dict:
+def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data: dict) -> dict:
     data_with_pointers = {}
 
     for k, v in data.items():
         if isinstance(v, dict):
             data_with_pointers[k] = load_data_set_pointers_as_json(v)
+
+        elif isinstance(v, ndarray):
+            data_with_pointers[k] = \
+                JSONDataSet.objects.create(
+                    json=v.tolist()).uuid
 
         elif isinstance(v, DataFrame):
             data_with_pointers[k] = \
