@@ -6,65 +6,57 @@ from uuid import UUID
 from .models import DataSet, NumPyArray, PandasDataFrame
 
 
-def load_data_set_pointers_as_json(data: dict) -> dict:
-    loaded_data = {}
+def load_data_set_pointers_as_json(data):
+    if isinstance(data, dict):
+        return {k: load_data_set_pointers_as_json(v)
+                for k, v in data.items()}
 
-    for k, v in data.items():
-        if isinstance(v, dict):
-            loaded_data[k] = load_data_set_pointers_as_json(v)
+    elif isinstance(data, (list, tuple)):
+        return [load_data_set_pointers_as_json(i)
+                for i in data]
 
-        elif isinstance(v, str):
-            try:
-                uuid = UUID(hex=v, version=4)
-            except ValueError:
-                uuid = None
+    elif isinstance(data, str):
+        try:
+            uuid = UUID(hex=data, version=4)
+        except ValueError:
+            uuid = None
 
-            loaded_data[k] = \
-                DataSet.objects.get(uuid=uuid).load() \
-                if uuid \
-                else v
+        return DataSet.objects.get(uuid=uuid).load() \
+            if uuid \
+          else data
 
-        else:
-            loaded_data[k] = v
-
-    return loaded_data
+    else:
+        return data
 
 
-def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data: dict) -> dict:
-    data_with_pointers = {}
+def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
+    if isinstance(data, dict):
+        return {k: save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(v)
+                for k, v in data.items()}
 
-    for k, v in data.items():
-        if isinstance(v, dict):
-            data_with_pointers[k] = load_data_set_pointers_as_json(v)
+    elif isinstance(data, (list, tuple)):
+        return [save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(i)
+                for i in data]
 
-        elif isinstance(v, (list, tuple)):
-            data_with_pointers[k] = \
-                [load_data_set_pointers_as_json(i)
-                 for i in v]
+    elif isinstance(data, ndarray):
+        return NumPyArray.objects.create(
+                dtype=data.dtype,
+                json=data.tolist()).uuid
 
-        elif isinstance(v, ndarray):
-            data_with_pointers[k] = \
-                NumPyArray.objects.create(
-                    dtype=v.dtype,
-                    json=v.tolist()).uuid
+    elif isinstance(data, DataFrame):
+        return PandasDataFrame.objects.create(
+                json=json.loads(data.to_json(path_or_buf=None,
+                                             orient='split',
+                                             date_format='iso',
+                                             double_precision=10,
+                                             force_ascii=False,
+                                             date_unit='ms',
+                                             default_handler=None,
+                                             lines=False,
+                                             compression=None,
+                                             index=True,
+                                             indent=None,
+                                             storage_options=None))).uuid
 
-        elif isinstance(v, DataFrame):
-            data_with_pointers[k] = \
-                PandasDataFrame.objects.create(
-                    json=json.loads(v.to_json(path_or_buf=None,
-                                              orient='split',
-                                              date_format='iso',
-                                              double_precision=10,
-                                              force_ascii=False,
-                                              date_unit='ms',
-                                              default_handler=None,
-                                              lines=False,
-                                              compression=None,
-                                              index=True,
-                                              indent=None,
-                                              storage_options=None))).uuid
-
-        else:
-            data_with_pointers[k] = v
-
-    return data_with_pointers
+    else:
+        return data
