@@ -40,7 +40,7 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
 
     elif isinstance(data, ndarray):
         return NumPyArray.objects.create(
-                dtype=data.dtype,
+                dtype=str(data.dtype),
                 json=data.tolist()).uuid
 
     elif isinstance(data, DataFrame):
