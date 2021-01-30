@@ -8,8 +8,10 @@ from .trust import urls as trust_urls
 urlpatterns = [
     path(route='data/',
          view=include(data_urls)),
+
     path(route='models/',
          view=include(model_urls)),
+
     path(route='trust/',
          view=include(trust_urls))
 ]
