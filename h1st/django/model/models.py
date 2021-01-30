@@ -1,5 +1,5 @@
-from h1st.core.graph import Graph as _CoreH1stWorkflow
 from h1st.core.model import Model as _CoreH1stModel
+from h1st.core.graph import Graph as _CoreH1stWorkflow
 
 from polymorphic.models import PolymorphicModel
 
