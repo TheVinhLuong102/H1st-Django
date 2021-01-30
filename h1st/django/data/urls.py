@@ -17,6 +17,6 @@ urlpatterns = [
     path(route='',
          view=include(CORE_REST_API_ROUTER.urls)),
 
-    path(route='query',
+    path(route='query/',
          view=DataQueryAPIView.as_view())
 ]
