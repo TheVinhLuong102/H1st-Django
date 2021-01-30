@@ -157,7 +157,8 @@ class ModelExecAPIView(APIView):
             json_output_data = model.predict(data)
 
             saved_json_output_data = \
-                save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(json_output_data)
+                save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
+                    json_output_data)
 
             Decision.objects.create(
                 input_data=data,
