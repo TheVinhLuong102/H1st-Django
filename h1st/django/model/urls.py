@@ -15,8 +15,8 @@ CORE_REST_API_ROUTER.register(
 
 
 urlpatterns = [
-    path('',
-         include(CORE_REST_API_ROUTER.urls)),
+    path(route='',
+         view=include(CORE_REST_API_ROUTER.urls)),
 
     path(route='exec/',
          view=ModelExecAPIView.as_view()),

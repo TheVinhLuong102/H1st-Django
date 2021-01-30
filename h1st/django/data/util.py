@@ -21,7 +21,7 @@ def load_data_set_pointers_as_json(data):
         except ValueError:
             uuid = None
 
-        return DataSet.objects.get(uuid=uuid).load() \
+        return DataSet.objects.get(uuid=uuid).json \
             if uuid \
           else data
 
