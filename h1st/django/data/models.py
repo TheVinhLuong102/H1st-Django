@@ -9,6 +9,7 @@ from polymorphic.models import PolymorphicModel
 
 from json.decoder import JSONDecoder
 import os
+import numpy
 import pandas
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
@@ -210,16 +211,7 @@ class JSONDataSet(DataSet):
         default_related_name = 'json_data_sets'
 
     def load(self):
-        d = self.json
-
-        # if Pandas DataFrame content with orient='split'
-        if {'columns', 'index', 'data'}.issuperset(d.keys()):
-            return pandas.DataFrame(
-                    columns=d['columns'],
-                    data=d['data'])
-
-        else:
-            return d
+        return self.json
 
 
 class NamedJSONDataSet(_NamedDataSet, JSONDataSet):
@@ -232,6 +224,89 @@ class NamedJSONDataSet(_NamedDataSet, JSONDataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'named_json_data_sets'
+
+
+class NumPyArray(JSONDataSet):
+    dtype = \
+        JSONField(
+            verbose_name='Data Type(s)',
+            help_text='Data Type(s)',
+
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=False,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta(JSONDataSet.Meta):
+        verbose_name = 'NumPy Array'
+        verbose_name_plural = 'NumPy Arrays'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'numpy_arrays'
+
+    def load(self):
+        return numpy.array(
+                object=self.json,
+                dtype=self.dtype,
+                copy=False,
+                order='K',
+                subok=False,
+                ndmin=0)
+
+
+class NamedNumPyArray(_NamedDataSet, NumPyArray):
+    class Meta(_NamedDataSet.Meta, NumPyArray.Meta):
+        verbose_name = 'Named NumPy Array'
+        verbose_name_plural = 'Named NumPy Arrays'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'named_numpy_arrays'
+
+
+class PandasDataFrame(JSONDataSet):
+    class Meta(JSONDataSet.Meta):
+        verbose_name = 'Pandas DataFrame'
+        verbose_name_plural = 'Pandas DataFrames'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'pandas_dataframes'
+
+    def load(self):
+        return pandas.DataFrame(**self.json)
+
+
+class NamedPandasDataFrame(_NamedDataSet, PandasDataFrame):
+    class Meta(_NamedDataSet.Meta, PandasDataFrame.Meta):
+        verbose_name = 'Named Pandas DataFrame'
+        verbose_name_plural = 'Named Pandas DataFrames'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'named_pandas_dataframes'
 
 
 class _FileStoredDataSet(DataSet):
