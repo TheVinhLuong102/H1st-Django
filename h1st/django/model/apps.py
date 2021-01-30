@@ -21,7 +21,7 @@ class H1stModelModuleConfig(AppConfig):
     # AppConfig.verbose_name
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
-    verbose_name = 'Human-First AI: Models'
+    verbose_name = 'Human-First AI: Models & Workflows'
 
     # AppConfig.path
     # Filesystem path to the application directory,
