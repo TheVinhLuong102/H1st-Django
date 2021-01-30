@@ -47,5 +47,5 @@ class Workflow(Model, _CoreH1stWorkflow):
         return _CoreH1stWorkflow.predict(self, *args, **kwargs)
 
 
-# aliases
-H1stGraph = Graph = H1stWorkflow = Workflow
+# alias
+H1stWorkflow = Workflow
