@@ -4,8 +4,7 @@ from ...models import Model
 
 
 class H1stModelSerializer(ModelSerializer):
-    description = \
-        SerializerMethodField(method_name='get_description')
+    description = SerializerMethodField(method_name='get_description')
 
     class Meta:
         model = Model
