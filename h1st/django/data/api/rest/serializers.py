@@ -6,6 +6,8 @@ from ...models import DataSet
 class DataSetSerializer(ModelSerializer):
     description = SerializerMethodField(method_name='get_description')
 
+    json = SerializerMethodField(method_name='get_json')
+
     class Meta:
         model = DataSet
 
@@ -18,3 +20,6 @@ class DataSetSerializer(ModelSerializer):
 
     def get_description(self, obj):
         return str(obj)
+
+    def get_json(self, obj):
+        return obj.json
