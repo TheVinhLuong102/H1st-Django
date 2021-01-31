@@ -12,6 +12,7 @@ from h1st.django.util.cli import run_command_with_config_file, __path__
 
 _EB_EXTENSIONS_DIR_NAME = '.ebextensions'
 _EB_IGNORE_FILE_NAME = '.ebignore'
+_PLATFORM_DIR_NAME = '.platform'
 
 
 PARSER = \
@@ -315,6 +316,16 @@ elif args.aws_eb_cmd == 'deploy':
         dst=_EB_IGNORE_FILE_NAME)
     assert os.path.isfile(_EB_IGNORE_FILE_NAME)
 
+    assert not os.path.exists(path=_PLATFORM_DIR_NAME)
+    shutil.copytree(
+        src=_aws_eb_cli_util_dir_path / _PLATFORM_DIR_NAME,
+        dst=_PLATFORM_DIR_NAME,
+        symlinks=False,
+        ignore=None,
+        ignore_dangling_symlinks=False,
+        dirs_exist_ok=False)
+    assert os.path.isdir(_PLATFORM_DIR_NAME)
+
     run_command_with_config_file(
         command=('eb ' +
                  ((f'create --region {region} --vpc.id {vpc}'
@@ -336,3 +347,9 @@ elif args.aws_eb_cmd == 'deploy':
 
     os.remove(_EB_IGNORE_FILE_NAME)
     assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)
+
+    shutil.rmtree(
+        path=_PLATFORM_DIR_NAME,
+        ignore_errors=False,
+        onerror=None)
+    assert not os.path.exists(path=_PLATFORM_DIR_NAME)
