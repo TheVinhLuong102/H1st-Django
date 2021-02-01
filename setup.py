@@ -22,4 +22,5 @@ setup(
                       if not s.startswith('#')],
     scripts=['h1st/django/util/cli/h1st',
              'h1st/django/util/cli/aws-eb/h1st-aws',
-             'h1st/django/util/cli/clone-template/h1st-clone'])
+             'h1st/django/util/cli/clone-template/h1st-clone',
+             'h1st/django/util/cli/clone-template/h1st-templates'])
