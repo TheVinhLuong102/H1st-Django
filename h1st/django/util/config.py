@@ -62,7 +62,10 @@ def config_app(
         app_dir_path: str,
         config_file_path: str,
         asgi=False):
+    print(f'Updating sys.path from {sys.path}... ', end='')
     sys.path.append(app_dir_path)
+    print(f'to {sys.path}!')
+
     import settings as _settings
 
     config = parse_config_file(path=config_file_path)
