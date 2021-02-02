@@ -6,4 +6,4 @@ __pycache__/
 *.pyc
 
 # NodeJS Modules
-node_modules/
+ui/node_modules/
