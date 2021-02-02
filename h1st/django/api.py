@@ -12,3 +12,5 @@ from .model.api import \
     Workflow, H1stWorkflow
 
 from .trust.api import Decision, ModelEvalMetricsSet
+
+from .util.config import config_app
