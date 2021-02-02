@@ -63,7 +63,7 @@ def config_app(
         config_file_path: str,
         asgi=False):
     print(f'Updating sys.path from {sys.path}... ', end='')
-    sys.path.append(os.path.abspath(path=app_dir_path)
+    sys.path.append(Path(app_dir_path).resolve())
     print(f'to {sys.path}!')
 
     import settings as _settings
