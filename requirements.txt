@@ -3,7 +3,7 @@ H1st >= 2020.12
 
 
 # DJANGO
-Django >= 3.1.5
+Django >= 3.1.6
 
 # Django Polymorphic Models
 Django-Polymorphic >= 3.0.0
