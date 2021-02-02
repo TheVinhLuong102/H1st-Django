@@ -62,7 +62,9 @@ def config_app(
         app_dir_path: str,
         config_file_path: str,
         asgi=False):
-    sys.path.append(Path(app_dir_path).resolve())
+    sys.path.append(
+        str(Path(app_dir_path).resolve())   # must be string, absolute path
+    )
     import settings as _settings
 
     config = parse_config_file(path=config_file_path)
