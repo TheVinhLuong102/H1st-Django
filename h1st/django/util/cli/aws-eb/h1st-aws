@@ -11,6 +11,7 @@ from h1st.django.util.cli import run_command_with_config_file, __path__
 
 
 _EB_EXTENSIONS_DIR_NAME = '.ebextensions'
+_EB_IGNORE_FILE_NAME = '.ebignore'
 _PLATFORM_DIR_NAME = '.platform'
 
 
@@ -309,6 +310,12 @@ elif args.aws_eb_cmd == 'deploy':
         dirs_exist_ok=False)
     assert os.path.isdir(_EB_EXTENSIONS_DIR_NAME)
 
+    assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)
+    shutil.copyfile(
+        src=_aws_eb_cli_util_dir_path / _EB_IGNORE_FILE_NAME,
+        dst=_EB_IGNORE_FILE_NAME)
+    assert os.path.isfile(_EB_IGNORE_FILE_NAME)
+
     assert not os.path.exists(path=_PLATFORM_DIR_NAME)
     shutil.copytree(
         src=_aws_eb_cli_util_dir_path / _PLATFORM_DIR_NAME,
@@ -337,6 +344,9 @@ elif args.aws_eb_cmd == 'deploy':
         ignore_errors=False,
         onerror=None)
     assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
+
+    os.remove(_EB_IGNORE_FILE_NAME)
+    assert not os.path.exists(path=_EB_IGNORE_FILE_NAME)
 
     shutil.rmtree(
         path=_PLATFORM_DIR_NAME,
