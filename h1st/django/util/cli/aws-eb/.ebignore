@@ -5,6 +5,3 @@
 .mypy_cache/
 __pycache__/
 *.pyc
-
-# NodeJS Modules
-node_modules/
