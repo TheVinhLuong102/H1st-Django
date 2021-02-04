@@ -68,4 +68,5 @@ Tqdm >= 4.56.0
 
 # CLOUD
 # AWS Elastic Beanstalk
-AWSEBCLI >= 3.19.3
+AWSEBCLI
+    # no package version specification to avoid conflict with AWSCLI & Boto3
