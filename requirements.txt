@@ -56,7 +56,7 @@ Uvloop >= 0.14.0; python_version < '3.9'
 
 
 # DATABASE CONNECTORS/DRIVERS
-MySQLClient >= 2.0.3; python_version < '3.9'
+# MySQLClient >= 2.0.3; python_version < '3.9'
 PsycoPG2-binary >= 2.8.6
 
 
