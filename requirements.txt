@@ -37,7 +37,7 @@ Django-Model-Query-Graphs >= 0.0.5
 Django-Silk >= 4.1.0
 
 # Django Extensions & Utilities
-Django-Extensions >= 3.1.0
+Django-Extensions >= 3.1.1
 Django-Model-Utils >= 4.1.1
 Django-Storages >= 1.11
 
@@ -61,9 +61,9 @@ PsycoPG2-binary >= 2.8.6
 
 
 # OTHER
-GitPython >= 3.1.12
+GitPython >= 3.1.13
 Ruamel.YAML >= 0.16.12
-Tqdm >= 4.56.0
+Tqdm >= 4.56.1
 
 
 # CLOUD
