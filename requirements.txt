@@ -39,7 +39,7 @@ Django-Silk >= 4.1.0
 # Django Extensions & Utilities
 Django-Extensions >= 3.1.1
 Django-Model-Utils >= 4.1.1
-Django-Storages >= 1.11
+Django-Storages >= 1.11.1
 
 # Django CORS Headers
 Django-CORS-Headers >= 3.7.0
@@ -51,19 +51,19 @@ Hypercorn >= 0.11.2
 Uvicorn >= 0.13.3
 HTTPTools >= 0.1.1; python_version < '3.9'
     # required by Uvicorn
-Uvloop >= 0.14.0; python_version < '3.9'
+Uvloop >= 0.15.1
     # required by Uvicorn
 
 
 # DATABASE CONNECTORS/DRIVERS
-# MySQLClient >= 2.0.3; python_version < '3.9'
+MySQLClient >= 2.0.3; python_version < '3.9'
 PsycoPG2-binary >= 2.8.6
 
 
 # OTHER
 GitPython >= 3.1.13
 Ruamel.YAML >= 0.16.12
-Tqdm >= 4.56.1
+Tqdm >= 4.56.2
 
 
 # CLOUD
