@@ -23,6 +23,8 @@ def model_exec_on_json_input_data(request, model_uuid, json_input_data):
     saved_json_output_data = \
         save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(json_output_data)
 
+    print(f'OUTPUT: {saved_json_output_data}')
+
     Decision.objects.create(
         input_data=json_input_data,
         model=model,

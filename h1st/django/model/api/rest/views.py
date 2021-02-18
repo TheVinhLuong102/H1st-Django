@@ -160,6 +160,8 @@ class ModelExecAPIView(APIView):
                 save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
                     json_output_data)
 
+            print(f'OUTPUT: {saved_json_output_data}')
+
             Decision.objects.create(
                 input_data=data,
                 model=model,
