@@ -1,5 +1,5 @@
 import json
-from numpy import floating, integer, ndarray
+from numpy import floating, integer, isnan, ndarray
 from pandas import DataFrame
 from uuid import UUID
 
@@ -39,9 +39,15 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
                 for i in data]
 
     elif isinstance(data, ndarray):
+        json_data = data.tolist()
+
+        if data.ndim == 1:
+            json_data = [None if isnan(i) else i
+                         for i in json_data]
+
         return NumPyArray.objects.create(
                 dtype=str(data.dtype),
-                json=data.tolist()).uuid
+                json=json_data).uuid
 
     elif isinstance(data, DataFrame):
         return PandasDataFrame.objects.create(
