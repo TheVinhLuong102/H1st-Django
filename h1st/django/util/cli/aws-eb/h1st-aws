@@ -292,6 +292,7 @@ if args.aws_eb_cmd == 'init':
 elif args.aws_eb_cmd == 'deploy':
     configs = yaml.safe_load(stream=open(args.h1st_django_config_file_path))
     aws_configs = configs['aws']
+    profile = aws_configs.get('profile', 'default')
     region = aws_configs['region']
     vpc = aws_configs['vpc']
     subnets = aws_configs['subnets']
@@ -340,7 +341,8 @@ elif args.aws_eb_cmd == 'deploy':
                    f' --instance_type {instance_type}')
                   if args.create
                   else 'deploy') +
-                 f" {args.aws_eb_env_name if args.aws_eb_env_name else ''}"),
+                 (f' --profile {profile}'
+                  f" {args.aws_eb_env_name if args.aws_eb_env_name else ''}")),
         h1st_django_config_file_path=args.h1st_django_config_file_path,
         asgi=args.asgi)
 
