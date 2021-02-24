@@ -74,6 +74,7 @@ def run_command_with_config_file(
             os.environ.setdefault('AWS_ACCESS_KEY_ID', key)
             os.environ.setdefault('AWS_SECRET_ACCESS_KEY', secret)
 
+    print(f'Running Command: {command}...')
     os.system(command)
 
     os.remove(_H1ST_DJANGO_CONFIG_FILE_NAME)

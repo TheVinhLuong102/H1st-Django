@@ -3,7 +3,7 @@ H1st >= 2020.12
 
 
 # DJANGO
-Django >= 3.1.6
+Django >= 3.1.7
 
 # Django Polymorphic Models
 Django-Polymorphic >= 3.0.0
@@ -13,7 +13,7 @@ Django-Grappelli >= 2.14.3
 Django-Jazzmin >= 2.4.4
 
 # Django-AutoComplete-Light & related
-Django-AutoComplete-Light >= 3.8.1
+Django-AutoComplete-Light >= 3.8.2
 Django-Generic-M2M >= 0.3.1
 Django-GM2M >= 1.1.1
 Django-QuerySetSequence >= 0.13
@@ -48,10 +48,10 @@ Django-CORS-Headers >= 3.7.0
 # ASYNCHRONOUS SERVER GATEWAY INTERFACE (ASGI)
 Daphne >= 3.0.1; python_version < '3.9'
 Hypercorn >= 0.11.2
-Uvicorn >= 0.13.3
+Uvicorn >= 0.13.4
 HTTPTools >= 0.1.1; python_version < '3.9'
     # required by Uvicorn
-Uvloop >= 0.15.1
+Uvloop >= 0.15.2
     # required by Uvicorn
 
 
@@ -63,7 +63,7 @@ PsycoPG2-binary >= 2.8.6
 # OTHER
 GitPython >= 3.1.13
 Ruamel.YAML >= 0.16.12
-Tqdm >= 4.56.2
+Tqdm >= 4.57.0
 
 
 # CLOUD
