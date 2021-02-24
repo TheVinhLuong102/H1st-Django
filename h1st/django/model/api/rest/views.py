@@ -180,3 +180,41 @@ class ModelExecAPIView(APIView):
             return Response('Content Type must be '
                             "either 'application/json' "
                             "or 'multipart/form-data'")
+
+
+class TestAPIView(APIView):
+    authentication_classes = \
+        BasicAuthentication, \
+        RemoteUserAuthentication, \
+        SessionAuthentication, \
+        TokenAuthentication
+
+    permission_classes = IsAuthenticated,
+
+    parser_classes = \
+        JSONParser, \
+        MultiPartParser
+
+    def post(self, request, *args, **kwargs):
+        if request.content_type == 'application/json':
+            return Response(
+                    data=request.data,
+                    status=None,
+                    template_name=None,
+                    headers=None,
+                    exception=False,
+                    content_type=None)
+
+        elif request.content_type.startswith('multipart/form-data'):
+            return Response(
+                    data=request.data,
+                    status=None,
+                    template_name=None,
+                    headers=None,
+                    exception=False,
+                    content_type=None)
+
+        else:
+            return Response('Content Type must be '
+                            "either 'application/json' "
+                            "or 'multipart/form-data'")

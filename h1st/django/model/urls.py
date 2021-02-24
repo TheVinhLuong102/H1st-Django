@@ -2,7 +2,7 @@ from django.urls.conf import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from .api.rest.views import H1stModelViewSet, ModelExecAPIView
+from .api.rest.views import H1stModelViewSet, ModelExecAPIView, TestAPIView
 from .views import model_exec_on_json_input_data
 
 
@@ -22,5 +22,8 @@ urlpatterns = [
          view=ModelExecAPIView.as_view()),
 
     path(route='<str:model_uuid>/<str:json_input_data>/',
-         view=model_exec_on_json_input_data)
+         view=model_exec_on_json_input_data),
+
+    path(route='test/',
+         view=TestAPIView.as_view())
 ]
