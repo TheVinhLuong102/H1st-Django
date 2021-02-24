@@ -39,15 +39,10 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
                 for i in data]
 
     elif isinstance(data, ndarray):
-        json_data = data.tolist()
-
-        if data.ndim == 1:
-            json_data = [None if isnan(i) else i
-                         for i in json_data]
-
         return NumPyArray.objects.create(
                 dtype=str(data.dtype),
-                json=json_data).uuid
+                json=save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
+                        data.tolist())).uuid
 
     elif isinstance(data, DataFrame):
         return PandasDataFrame.objects.create(
