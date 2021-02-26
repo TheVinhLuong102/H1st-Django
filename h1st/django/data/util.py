@@ -1,5 +1,5 @@
 import json
-from numpy import floating, integer, isnan, ndarray
+from numpy import floating, integer, isnan, isscalar, ndarray
 from pandas import DataFrame
 from uuid import UUID
 
@@ -59,16 +59,18 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
                                              indent=None,
                                              storage_options=None))).uuid
 
-    
-    
-    elif not(isinstance(data, str)) and isnan(data):
-        return None
+    elif isscalar(data):
+        if isnan(data):
+            return None
 
-    elif isinstance(data, floating):
-        return float(data)
+        elif isinstance(data, floating):
+            return float(data)
 
-    elif isinstance(data, integer):
-        return int(data)
+        elif isinstance(data, integer):
+            return int(data)
+
+        else:
+            return data
 
     else:
         return data
