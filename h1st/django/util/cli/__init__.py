@@ -32,12 +32,12 @@ def run_command_with_config_file(
     # verify config file is valid
     config = parse_config_file(path=h1st_django_config_file_path)
 
-    assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
-    shutil.copyfile(
-        src=h1st_django_config_file_path,
-        dst=_H1ST_DJANGO_CONFIG_FILE_NAME)
-
     if copy_standard_files:
+        assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
+        shutil.copyfile(
+            src=h1st_django_config_file_path,
+            dst=_H1ST_DJANGO_CONFIG_FILE_NAME)
+
         if asgi:
             assert not os.path.exists(path=_ASGI_PY_FILE_NAME)
             shutil.copyfile(
@@ -69,9 +69,16 @@ def run_command_with_config_file(
             os.environ.setdefault('AWS_SECRET_ACCESS_KEY', secret)
 
     print(f'Running Command: {command}...')
-    os.system(command)
+    os.system(
+        (''
+         if copy_standard_files
+         else f'H1ST_DJANGO_CONFIG_FILE_PATH={h1st_django_config_file_path} ')
+        + command)
 
     if copy_standard_files:
+        os.remove(_H1ST_DJANGO_CONFIG_FILE_NAME)
+        assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
+
         if asgi:
             os.remove(_ASGI_PY_FILE_NAME)
             assert not os.path.exists(path=_ASGI_PY_FILE_NAME)

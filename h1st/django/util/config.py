@@ -11,7 +11,12 @@ import sys
 _H1ST_DJANGO_CONFIG_FILE_NAME = '.config.yml'
 
 
-def parse_config_file(path=_H1ST_DJANGO_CONFIG_FILE_NAME):
+def parse_config_file(path=None):
+    if path is None:
+        path = os.environ.get(
+                'H1ST_DJANGO_CONFIG_FILE_PATH',
+                _H1ST_DJANGO_CONFIG_FILE_NAME)
+
     if os.path.isfile(path):
         # parse whole YAML config file
         config = yaml.safe_load(stream=open(path))
