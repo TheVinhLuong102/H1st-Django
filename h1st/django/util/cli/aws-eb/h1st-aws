@@ -344,6 +344,7 @@ elif args.aws_eb_cmd == 'deploy':
                  (f' --profile {profile}'
                   f" {args.aws_eb_env_name if args.aws_eb_env_name else ''}")),
         h1st_django_config_file_path=args.h1st_django_config_file_path,
+        copy_standard_files=True,
         asgi=args.asgi)
 
     shutil.rmtree(
