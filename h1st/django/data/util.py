@@ -59,7 +59,9 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
                                              indent=None,
                                              storage_options=None))).uuid
 
-    elif isnan(data):
+    
+    
+    elif not(isinstance(data, str)) and isnan(data):
         return None
 
     elif isinstance(data, floating):
