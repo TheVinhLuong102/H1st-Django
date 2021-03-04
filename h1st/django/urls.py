@@ -11,6 +11,8 @@ urlpatterns = [
 
     path(route='models/',
          view=include(model_urls)),
+    path(route='model/',
+         view=include(model_urls)),
     path(route='workflows/',
          view=include(model_urls)),
     path(route='workflow/',
