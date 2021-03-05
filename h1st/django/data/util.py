@@ -1,4 +1,3 @@
-import json
 from numpy import floating, integer, isnan, isreal, isscalar, ndarray
 from pandas import DataFrame
 from uuid import UUID
@@ -46,18 +45,7 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
 
     elif isinstance(data, DataFrame):
         return PandasDataFrame.objects.create(
-                json=json.loads(data.to_json(path_or_buf=None,
-                                             orient='split',
-                                             date_format='iso',
-                                             double_precision=10,
-                                             force_ascii=False,
-                                             date_unit='ms',
-                                             default_handler=None,
-                                             lines=False,
-                                             compression=None,
-                                             index=True,
-                                             indent=None,
-                                             storage_options=None))).uuid
+                json=PandasDataFrame.jsonize(data)).uuid
 
     elif isscalar(data):
         if isreal(data) and isnan(data):

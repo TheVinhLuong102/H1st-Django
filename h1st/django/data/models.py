@@ -7,6 +7,7 @@ from django.db.models.fields.related import ForeignKey
 
 from polymorphic.models import PolymorphicModel
 
+import json
 from json.decoder import JSONDecoder
 import os
 import numpy
@@ -292,6 +293,22 @@ class PandasDataFrame(JSONDataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'pandas_dataframes'
+
+    @classmethod
+    def jsonize(df: pandas.DataFrame) -> dict:
+        return json.loads(
+                df.to_json(path_or_buf=None,
+                           orient='split',
+                           date_format='iso',
+                           double_precision=10,
+                           force_ascii=False,
+                           date_unit='ms',
+                           default_handler=None,
+                           lines=False,
+                           compression=None,
+                           index=True,
+                           indent=None,
+                           storage_options=None))
 
     def load(self):
         return pandas.DataFrame(**self.json)
