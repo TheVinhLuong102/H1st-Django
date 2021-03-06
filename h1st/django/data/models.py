@@ -398,7 +398,7 @@ class CSVDataSet(_FileStoredDataSet):
             os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret
 
         return pandas.read_csv(
-                path=self.path,
+                self.path,
                 **kwargs)
 
     def load(self):
