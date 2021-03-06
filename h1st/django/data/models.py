@@ -295,7 +295,7 @@ class PandasDataFrame(JSONDataSet):
         default_related_name = 'pandas_dataframes'
 
     @classmethod
-    def jsonize(df: pandas.DataFrame) -> dict:
+    def jsonize(cls, df: pandas.DataFrame) -> dict:
         return json.loads(
                 df.to_json(path_or_buf=None,
                            orient='split',
